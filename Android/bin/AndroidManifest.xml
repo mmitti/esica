@@ -22,6 +22,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name="jp.mmitti.sansan.create.CreateActivity"
+            android:label="@string/app_create" >
+        </activity>
     </application>
 
 </manifest>

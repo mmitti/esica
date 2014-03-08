@@ -39,7 +39,7 @@ public class HTTPConnection{
         HttpResponse res = null;
         try {
 
-	        StringEntity body = new StringEntity(jsonarg);
+	        StringEntity body = new StringEntity(jsonarg, "UTF-8");
             post.setEntity(body);
 	        post.addHeader("Content-type", "application/json");
             res = httpClient.execute(post);
@@ -47,7 +47,7 @@ public class HTTPConnection{
             e.printStackTrace();
         }
         try {
-			String ret = EntityUtils.toString(res.getEntity());
+			String ret = EntityUtils.toString(res.getEntity(), "UTF-8");
 			httpClient.getConnectionManager().shutdown();
 			return ret;
 		} catch (ParseException e) {

@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="5dp" >
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:text="ステップ2/4\n基本的な情報"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/textView1"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="10dp"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <EditText
+                android:id="@+id/last_name_ruby"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:hint="性(かな)"
+                android:imeOptions="actionNext"
+                android:inputType="textNoSuggestions" >
+            </EditText>
+
+            <EditText
+                android:id="@+id/first_name_ruby"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:hint="名(かな)"
+                android:imeOptions="actionNext"
+                android:inputType="textNoSuggestions" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <EditText
+                android:id="@+id/last_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:hint="性"
+                android:imeOptions="actionNext"
+                android:inputType="textNoSuggestions" >
+            </EditText>
+
+            <EditText
+                android:id="@+id/first_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:hint="名"
+                android:imeOptions="actionNext"
+                android:inputType="textNoSuggestions" />
+        </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp" >
+
+                    <TextView
+                        android:id="@+id/textView2"
+                        android:layout_width="80dp"
+                        android:layout_height="wrap_content"
+                        android:text="学校/会社名"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+        
+        <EditText
+                android:id="@+id/school"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+
+                android:imeOptions="actionNext"
+                android:inputType="textNoSuggestions" >
+            </EditText>
+            </LinearLayout>
+              <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp" >
+
+                    <TextView
+                        android:id="@+id/textView3"
+                        android:layout_width="80dp"
+                        android:layout_height="wrap_content"
+                        android:text="所属・学科"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+        
+        <EditText
+                android:id="@+id/dep"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+
+                android:imeOptions="actionNext"
+                android:inputType="textNoSuggestions" >
+            </EditText>
+            </LinearLayout>
+              <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp" >
+
+                    <TextView
+                        android:id="@+id/textView3"
+                        android:layout_width="50dp"
+                        android:layout_height="wrap_content"
+                        android:text="Email"
+                        android:textAppearance="?android:attr/textAppearanceMedium" />
+        
+        <EditText
+                android:id="@+id/email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+
+                android:imeOptions="actionNext"
+                android:inputType="textNoSuggestions" >
+            </EditText>
+            </LinearLayout>
+            
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp" >
+
+                    <TextView
+                        android:id="@+id/textView4"
+                        android:layout_width="50dp"
+                        android:layout_height="wrap_content"
+                        android:text="TEL"
+                        android:textAppearance="?android:attr/textAppearanceMedium" />
+        
+        <EditText
+                android:id="@+id/tel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+
+                android:imeOptions="actionNext"
+                android:inputType="textNoSuggestions" >
+            </EditText>
+            </LinearLayout>
+    </LinearLayout>
+    
+<Button
+        android:id="@+id/back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:text="戻る" />
+    <Button
+        android:id="@+id/next"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:text="次へ" />
+
+</RelativeLayout>
