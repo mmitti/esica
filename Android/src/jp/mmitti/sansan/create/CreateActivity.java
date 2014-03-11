@@ -1,5 +1,6 @@
 package jp.mmitti.sansan.create;
 
+import jp.mmitti.sansan.common.Data;
 import jp.mmitti.sansan.common.Screen;
 import jp.mmitti.sansan.common.ScreenManagerActivity;
 import android.R;
@@ -10,8 +11,10 @@ import android.view.MenuItem;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
-public class CreateActivity extends ScreenManagerActivity {
+public class CreateActivity extends ScreenManagerActivity implements CreateManager {
 
+	private Data mData;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -19,6 +22,8 @@ public class CreateActivity extends ScreenManagerActivity {
 
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 	    getActionBar().setHomeButtonEnabled(true);
+	    mData = new Data();
+	    moveScreen(new Init());
 	}
 	
 	@Override
@@ -32,6 +37,11 @@ public class CreateActivity extends ScreenManagerActivity {
 	public boolean onOptionsItemSelected(MenuItem i){
 		if(i.getItemId() == R.id.home)this.onBackPressed();
 		return super.onOptionsItemSelected(i);
+	}
+
+	@Override
+	public Data getData() {
+		return mData;
 	}
 
 }

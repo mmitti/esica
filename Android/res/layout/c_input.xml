@@ -33,9 +33,11 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
-                android:hint="性(かな)"
+                android:hint="性(ローマ字)"
                 android:imeOptions="actionNext"
-                android:inputType="textNoSuggestions" >
+                android:inputType="textCapSentences|textNoSuggestions|textEmailAddress" >
+
+                <requestFocus />
             </EditText>
 
             <EditText
@@ -44,9 +46,9 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
-                android:hint="名(かな)"
+                android:hint="名(ローマ字)"
                 android:imeOptions="actionNext"
-                android:inputType="textNoSuggestions" />
+                android:inputType="textCapSentences|textNoSuggestions|textEmailAddress" />
         </LinearLayout>
 
         <LinearLayout
@@ -132,13 +134,13 @@
                         android:textAppearance="?android:attr/textAppearanceMedium" />
         
         <EditText
-                android:id="@+id/email"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
+            android:id="@+id/email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:imeOptions="actionNext"
+            android:inputType="textNoSuggestions|textEmailAddress" >
 
-                android:imeOptions="actionNext"
-                android:inputType="textNoSuggestions" >
             </EditText>
             </LinearLayout>
             
@@ -155,15 +157,16 @@
                         android:textAppearance="?android:attr/textAppearanceMedium" />
         
         <EditText
-                android:id="@+id/tel"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
+            android:id="@+id/tel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:imeOptions="actionDone"
+            android:inputType="textNoSuggestions|phone" >
 
-                android:imeOptions="actionNext"
-                android:inputType="textNoSuggestions" >
             </EditText>
             </LinearLayout>
+
     </LinearLayout>
     
 <Button

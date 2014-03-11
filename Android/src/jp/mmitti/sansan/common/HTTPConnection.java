@@ -25,7 +25,12 @@ public class HTTPConnection{
 
 	
 	
-	
+	/**
+	 * 
+	 * @param path http://URI/path.json
+	 * @param jsonarg
+	 * @return
+	 */
 	public static String Post(String path, String jsonarg){
 		DefaultHttpClient httpClient = new DefaultHttpClient();
 		HttpPost post = null;
