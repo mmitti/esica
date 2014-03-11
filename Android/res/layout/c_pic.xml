@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#ededed"
     android:padding="5dp" >
 
     <TextView
@@ -14,37 +15,46 @@
         android:text="ステップ3/4\n顔写真とQRコード"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
+    <LinearLayout
+        android:id="@+id/linearLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView1"
+        
+        android:layout_marginTop="10dp"
+        android:layout_weight="1" >
+
+        <TextView
+            android:id="@+id/textSex"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/textView1"
-            android:layout_marginTop="10dp"
-            android:layout_weight="1" >
+            android:text="モード" />
 
-            <TextView
-                android:id="@+id/textSex"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="モード" />
+        <RadioButton
+            android:id="@+id/facepic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="顔写真" />
 
-            <RadioButton
-                android:id="@+id/facepic"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="顔写真" />
+        <RadioButton
+            android:id="@+id/qrcode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="QRコード" />
+        <RadioButton
+            android:id="@+id/none"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="なし" />
+    </LinearLayout>
 
-            <RadioButton
-                android:id="@+id/qrcode"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="QRコード" />
-        </LinearLayout>
     <Button
         android:id="@+id/back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
+        android:background="@drawable/default_button_background"
         android:text="戻る" />
 
     <Button
@@ -53,6 +63,39 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
+        android:background="@drawable/default_button_background"
         android:text="次へ" />
+
+    <RelativeLayout
+        android:id="@+id/innercontent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/back"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/linearLayout1" >
+
+        <jp.mmitti.sansan.create.FacePictureSelect
+            android:id="@+id/facePictureSelect"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="0dp" >
+
+        </jp.mmitti.sansan.create.FacePictureSelect>
+ 		<jp.mmitti.sansan.create.QRCreate
+        	android:id="@+id/qRCreate"
+        	android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="0dp" >
+    	</jp.mmitti.sansan.create.QRCreate>
+    </RelativeLayout>
 
 </RelativeLayout>

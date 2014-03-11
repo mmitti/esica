@@ -57,7 +57,7 @@ public abstract class ScreenManagerActivity extends Activity implements ScreenMa
 	public void changeScreen(Screen s){
 		if(!(mActiveScreen == null || mActiveScreen.getState().contains(ScreenState.NO_PUSH_STACK))){
 			mScreenStack.push(Pair.create(mActiveScreen, mActiveView));
-			mActiveScreen.pause();
+			//mActiveScreen.pause();//bug?
 		}
 		moveScreen(s);
 	}

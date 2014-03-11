@@ -1,46 +1,56 @@
 package jp.mmitti.sansan.common;
 
+import android.os.Environment;
+import net.arnx.jsonic.JSONHint;
+
 public class Data {
 	/**
 	 * 姓
 	 */
-	String family;
+	public String family;
 	/**
 	 * 名
 	 */
-	String name;
+	public String name;
 	/**
 	 * ルビ　姓
 	 */
-	String rubi_family;
+	public String rubi_family;
 	/**
 	 * ルビ　名
 	 */
-	String rubi_name;
+	public String rubi_name;
 	/**
 	 * 会社名　学校名
 	 */
-	String school;
+	public String school;
 	/**
 	 * 所属
 	 */
-	String department;
+	public String department;
 	/**
 	 * メールアドレス
 	 */
-	String mail;
+	public String mail;
 	/**
 	 * 電話番号
 	 */
-	String tel;
+	public String tel;
 	/**
 	 * 顔写真・QR base64 135 × 135‏
 	 */
-	String pic;
+	public String pic;
 	/**
 	 * 背景　base64 91×55‏
 	 */
-	String back;
+	public String back;
+	
+	@JSONHint(ignore=true)
+	public PicMode PicMode;
+	
+	public enum PicMode{
+		QR, FACE, NONE;
+	}
 	
 	public Data(){
 		family="";
@@ -53,5 +63,18 @@ public class Data {
 		tel = "";
 		pic = "";
 		back = "";
+		PicMode = PicMode.NONE;
+	}
+
+	public String getQRData() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("Name:"+rubi_family+" "+rubi_name+"\n");
+		sb.append("名前:"+family+" "+name+"\n");
+		sb.append("学校名/会社名:"+school+"\n");
+		sb.append("学科/部署:"+department+"\n");
+		sb.append("メールアドレス:"+mail+"\n");
+
+		sb.append("電話番号:"+tel+"\n");
+		return sb.toString();
 	}
 }

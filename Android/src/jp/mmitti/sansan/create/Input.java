@@ -1,10 +1,12 @@
 package jp.mmitti.sansan.create;
 
 import jp.mmitti.sansan.R;
+import jp.mmitti.sansan.common.Data;
 import jp.mmitti.sansan.common.ScreenManagerActivity;
 import android.text.InputFilter;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
+import android.text.SpannedString;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
@@ -58,7 +60,7 @@ public class Input extends CreateScreen implements OnClickListener {
 	public void onClick(View v) {
 		switch(v.getId()){
 		case R.id.next:
-			mManager.changeScreen(new Preview());
+			mManager.changeScreen(new SelectPic());
 			break;
 		case R.id.back:
 			mManager.popScreen();
@@ -67,15 +69,50 @@ public class Input extends CreateScreen implements OnClickListener {
 		}
 	}
 	
+	@Override
+	public void resume(){
+		super.resume();
+		Data d = mManager.getData();
+		Family.setText(d.family);
+		Name.setText(d.name);
+		FamilyRuby.setText(d.rubi_family);
+		NameRuby.setText(d.rubi_name);
+		
+		School.setText(d.school);
+		Department.setText(d.department);
+		
+		Email.setText(d.mail);
+		Tel.setText(d.tel);
+	}
+	
+	@Override
+	public void pause(){
+		super.pause();
+		Data d = mManager.getData();
+		d.family = Family.getEditableText().toString();
+		d.name = Name.getEditableText().toString();
+		d.rubi_family = FamilyRuby.getEditableText().toString();
+		d.rubi_name = NameRuby.getEditableText().toString();
+		
+		d.school = School.getEditableText().toString();
+		d.department = Department.getEditableText().toString();
+		
+		d.mail = Email.getEditableText().toString();
+		d.tel = Tel.getEditableText().toString();
+		
+	}
+	
 	private class RomaInputFilter implements android.text.InputFilter{
 		@Override
 		public CharSequence filter(CharSequence src, int start, int end,
 				Spanned dest, int dstart, int dend){
-			SpannableStringBuilder t = (SpannableStringBuilder) dest;
-			if(src.toString().matches("[0-9a-zA-Z@¥.¥_\\-]*")){
-				return src;
+			if(dest instanceof SpannableStringBuilder){
+				SpannableStringBuilder t = (SpannableStringBuilder) dest;
+				if(src.toString().matches("[0-9a-zA-Z@¥.¥_\\-]*")){
+					return src;
+				}
 			}
-			
+			if(dest instanceof SpannedString)return src;
 			
 			return "";
 		}
