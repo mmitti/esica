@@ -2,8 +2,10 @@ package jp.mmitti.sansan;
 
 import jp.mmitti.sansan.common.Screen;
 import jp.mmitti.sansan.common.ScreenManagerActivity;
+import jp.mmitti.sansan.create.CreateActivity;
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Intent;
 import android.view.Menu;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -16,6 +18,7 @@ public class MainActivity extends ScreenManagerActivity {
 		moveScreen(new Screen(){protected ViewGroup initView(ScreenManagerActivity a){return new LinearLayout(a);}});
 		moveScreen(new MainScreen());
 	}
+
 
 	
 

@@ -6,6 +6,8 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.LinkedList;
+import java.util.List;
 
 import net.arnx.jsonic.JSON;
 import android.graphics.Bitmap;
@@ -20,9 +22,9 @@ import android.os.Environment;
  *
  */
 public class CardData {
-	private final String DIR = Environment.getExternalStorageDirectory()+"/mmitti/sansan";
-	private final String JSON_DATA = "json";
-	private final String IMG = "png";
+	private final static String DIR = Environment.getExternalStorageDirectory()+"/mmitti/sansan";
+	private final static String JSON_DATA = "json";
+	private final static String IMG = "png";
 	public ArgData data;
 	public Bitmap cardImg;
 	private int mCurrentNum;
@@ -86,5 +88,23 @@ public class CardData {
 			}
 			
 		}
+	}
+	
+	public static List<Integer> getCardList(){
+		List<Integer> list = new LinkedList<Integer>();
+		File f = new File(DIR);
+		if(!f.exists())return list;
+		File[] files = f.listFiles();
+		for(File s : files){
+			File tmp = new File(s, IMG);
+			if(tmp.exists())list.add(Integer.parseInt(s.getName()));
+		}
+		return list;
+	}
+	
+	public static Bitmap getImage(int num){
+		File img = new File(DIR+"/"+num+"/"+IMG); 
+		if(!img.exists())return null;
+		return BitmapFactory.decodeFile(DIR+"/"+num+"/"+IMG);
 	}
 }

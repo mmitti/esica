@@ -12,44 +12,18 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#ededed" >
+
+      
+
     </RelativeLayout>
  
     <!-- The navigation drawer -->
- 
-    <RelativeLayout
+   <jp.mmitti.sansan.MainDrawer
         android:id="@+id/left_drawer"
         android:layout_width="240dp"
         android:layout_height="match_parent"
         android:layout_gravity="left"
         android:background="#29536f" >
-        
-		<ScrollView
-		    android:layout_width="match_parent"
-			android:layout_height="match_parent"
-		    android:layout_alignParentLeft="true"
-			android:layout_alignParentRight="true"
-			android:layout_alignParentTop="true"
-			android:layout_above="@+id/add">
-		        <LinearLayout
-		            android:id="@+id/cards"
-		            android:layout_width="match_parent"
-		            android:layout_height="wrap_content"
-		            android:orientation="vertical">
-		            <!-- ここにカードを -->
-		        </LinearLayout>
-		 </ScrollView>
-
-        <Button
-            android:id="@+id/add"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentRight="true"
-            android:background="@drawable/drawer_button_background"
-            android:text="ADD"         
-	        android:textColor="#FFFFFF"/>
-
-    </RelativeLayout>
- 
+        </jp.mmitti.sansan.MainDrawer>
+    
 </android.support.v4.widget.DrawerLayout>
