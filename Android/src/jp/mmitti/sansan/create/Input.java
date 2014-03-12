@@ -1,7 +1,7 @@
 package jp.mmitti.sansan.create;
 
 import jp.mmitti.sansan.R;
-import jp.mmitti.sansan.common.Data;
+import jp.mmitti.sansan.common.ArgData;
 import jp.mmitti.sansan.common.ScreenManagerActivity;
 import android.text.InputFilter;
 import android.text.SpannableStringBuilder;
@@ -55,7 +55,7 @@ public class Input extends CreateScreen implements OnClickListener {
 		Tel = (EditText)g.findViewById(R.id.tel);
 		return g;
 	}
-
+	
 	@Override
 	public void onClick(View v) {
 		switch(v.getId()){
@@ -72,7 +72,7 @@ public class Input extends CreateScreen implements OnClickListener {
 	@Override
 	public void resume(){
 		super.resume();
-		Data d = mManager.getData();
+		ArgData d = mManager.getData();
 		Family.setText(d.family);
 		Name.setText(d.name);
 		FamilyRuby.setText(d.rubi_family);
@@ -88,7 +88,7 @@ public class Input extends CreateScreen implements OnClickListener {
 	@Override
 	public void pause(){
 		super.pause();
-		Data d = mManager.getData();
+		ArgData d = mManager.getData();
 		d.family = Family.getEditableText().toString();
 		d.name = Name.getEditableText().toString();
 		d.rubi_family = FamilyRuby.getEditableText().toString();

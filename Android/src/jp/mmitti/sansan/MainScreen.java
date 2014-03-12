@@ -37,6 +37,7 @@ public class MainScreen extends Screen {
 			@Override
 			public void onClick(View arg0) {
 				Intent intent = new Intent(activity, CreateActivity.class);
+			//	intent.putExtra("SRC", 1);
 				activity.startActivity(intent);
 				activity.overridePendingTransition(0, 0);
 				d.closeDrawers();

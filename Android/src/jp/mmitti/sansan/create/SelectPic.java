@@ -11,7 +11,7 @@ import android.widget.CompoundButton;
 import android.widget.RadioButton;
 import jp.mmitti.sansan.R;
 import jp.mmitti.sansan.common.MyRadioGroup;
-import jp.mmitti.sansan.common.Data.PicMode;
+import jp.mmitti.sansan.common.ArgData.PicMode;
 import jp.mmitti.sansan.common.MyRadioGroup.OnRadioCheckedListner;
 import jp.mmitti.sansan.common.MyAsyncTask;
 import jp.mmitti.sansan.common.Screen;
@@ -82,7 +82,7 @@ public class SelectPic extends CreateScreen implements OnClickListener {
 	public void onClick(View v) {
 		switch(v.getId()){
 		case R.id.next:
-			mManager.changeScreen(new Preview());
+			mManager.changeScreen(new SelectBackground());
 			
 			break;
 		case R.id.back:

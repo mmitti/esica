@@ -1,25 +1,73 @@
 package jp.mmitti.sansan.create;
 
+import java.util.EnumSet;
+
 import net.arnx.jsonic.JSON;
 import jp.mmitti.sansan.R;
-import jp.mmitti.sansan.common.BitmapUtil;
+import jp.mmitti.sansan.common.ScreenState;
+import jp.mmitti.sansan.common.Utils;
 import jp.mmitti.sansan.common.HTTPConnection;
 import jp.mmitti.sansan.common.MyAsyncTask;
 import jp.mmitti.sansan.common.ScreenManagerActivity;
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.graphics.Bitmap;
 import android.os.Handler;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 
 public class Preview extends CreateScreen {
 	private Post mPost;
+	private ImageView mImg;
+	private AlertDialog mCancelDialog;
+	private Save mSave;
+	
+	public Preview() {
+		mScreenState = EnumSet.of(ScreenState.NO_BACK, ScreenState.NO_PUSH_STACK);
+	}
 	@Override
-	protected ViewGroup initView(ScreenManagerActivity activity) {
+	protected ViewGroup initView(final ScreenManagerActivity activity) {
+		
 		ViewGroup g = (ViewGroup)ViewGroup.inflate(activity, R.layout.c_preview, null);
+		mImg = (ImageView)g.findViewById(R.id.image);
 		mPost = new Post(activity.getHandler());
 		mPost.start();
+		mSave = new Save(activity.getHandler());
+		mManager.clearScreen();
+		activity.getActionBar().setDisplayHomeAsUpEnabled(false);
+		AlertDialog.Builder b = new AlertDialog.Builder(activity);
+		b.setTitle("データを破棄しますか?");
+		b.setPositiveButton("はい", new OnClickListener() {
+			public void onClick(DialogInterface arg0, int arg1) {
+				activity.finish();
+			}
+		});
+		b.setNegativeButton("いいえ", new OnClickListener() {
+			public void onClick(DialogInterface dialog, int which) {
+				dialog.cancel();
+			}
+		});
+		mCancelDialog = b.create();
+		
+		Button cancel = (Button)g.findViewById(R.id.cancel);
+		cancel.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View arg0) {
+				mCancelDialog.show();
+			}
+		});
+		
+		Button save = (Button)g.findViewById(R.id.save);
+		save.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				mSave.start();
+			}
+		});
 		
 		return g;
 	}
@@ -27,9 +75,11 @@ public class Preview extends CreateScreen {
 	
 	private class Post extends MyAsyncTask{
 		ProgressDialog mDlg;
+		private Bitmap bitmap;
 		public Post(Handler handler) {
 			super(handler);
 			mDlg = new ProgressDialog((Context)mManager);
+			mDlg.setMessage("名刺を作成しています。");
 		}
 		
 		
@@ -41,15 +91,46 @@ public class Preview extends CreateScreen {
 		protected void doBackGround() throws InterruptedException {
 			String json = JSON.encode(mManager.getData());
 			String ret = HTTPConnection.Post("pass", json);
-			Bitmap b = BitmapUtil.Base64ToBitmap(ret);
+			Thread.sleep(1000);
+			bitmap = Utils.base64ToBitmap(mManager.getData().back);
+			mManager.make(bitmap);
+		}
+		
+		
+		protected void onFinishOnUI(){
+			mImg.setImageBitmap(bitmap);
+			mDlg.dismiss();
+
+		}
+		
+		
+	}
+	
+	private class Save extends MyAsyncTask{
+		ProgressDialog mDlg;
+		public Save(Handler handler) {
+			super(handler);
+			mDlg = new ProgressDialog((Context)mManager);
+			mDlg.setMessage("保存しています。");
+		}
+		
+		
+		protected void preProcessOnUI(){
+			mDlg.show();
+		}
+		
+		@Override
+		protected void doBackGround() throws InterruptedException {
+			mManager.save();
 		}
 		
 		
 		protected void onFinishOnUI(){
 			mDlg.dismiss();
-			//TODO set
+			((Activity)mManager).finish();//TOD 
 		}
 		
 		
 	}
+
 }

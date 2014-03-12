@@ -9,19 +9,28 @@ import android.graphics.Bitmap.CompressFormat;
 import net.arnx.jsonic.JSONHint;
 import net.arnx.jsonic.util.Base64;
 
-public class BitmapUtil {
+public class Utils {
 
-	public static Bitmap Base64ToBitmap(String json){
+	public static Bitmap base64ToBitmap(String json){
 		byte[] bytes = Base64.decode(json);
 		
-		return BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+		return bytesToBitmap(bytes);
 	}
 	
-	public static String BitmapToBase64(Bitmap b){
+	public static String bitmapToBase64(Bitmap b){
+		
+		return Base64.encode(bitmapToBytes(b));
+	}
+	
+	public static Bitmap bytesToBitmap(byte[] b){
+		return BitmapFactory.decodeByteArray(b, 0, b.length);
+	}
+	
+	public static byte[] bitmapToBytes(Bitmap b){
 		ByteArrayOutputStream os = new ByteArrayOutputStream();
 		b.compress(CompressFormat.PNG,80, os);
 		byte[] bytes = os.toByteArray();
-		return Base64.encode(bytes);
+		return bytes;
 	}
 	
 	/**
@@ -41,4 +50,5 @@ public class BitmapUtil {
 		ret.y = (int) (aspectRatio.y * fact);
 		return ret;
 	}
+	
 }

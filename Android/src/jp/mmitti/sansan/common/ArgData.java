@@ -1,9 +1,21 @@
 package jp.mmitti.sansan.common;
 
+import android.app.Activity;
+import android.content.ContentResolver;
+import android.content.ContentUris;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Environment;
+import android.provider.ContactsContract;
 import net.arnx.jsonic.JSONHint;
 
-public class Data {
+/**
+ * サーバーに送信するデータを扱うクラス<BR>
+ * 名前などのデータはここで扱う
+ * @author mmitti
+ *
+ */
+public class ArgData {
 	/**
 	 * 姓
 	 */
@@ -52,7 +64,7 @@ public class Data {
 		QR, FACE, NONE;
 	}
 	
-	public Data(){
+	public ArgData(){
 		family="";
 		name="";
 		rubi_family = "";
@@ -65,6 +77,8 @@ public class Data {
 		back = "";
 		PicMode = PicMode.NONE;
 	}
+	
+
 
 	public String getQRData() {
 		StringBuilder sb = new StringBuilder();

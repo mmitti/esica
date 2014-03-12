@@ -10,8 +10,8 @@ import com.google.zxing.qrcode.QRCodeWriter;
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 
 import jp.mmitti.sansan.R;
-import jp.mmitti.sansan.common.BitmapUtil;
-import jp.mmitti.sansan.common.Data;
+import jp.mmitti.sansan.common.Utils;
+import jp.mmitti.sansan.common.ArgData;
 import jp.mmitti.sansan.common.ImageSelectDialog.OnBitmapRecvdListner;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -44,7 +44,7 @@ public class QRCreate  extends LinearLayout{
 	}
 	
 	public String getQRImage(){
-		BitmapUtil.BitmapToBase64(createQR(mManager.getData().getQRData()));
+		Utils.bitmapToBase64(createQR(mManager.getData().getQRData()));
 		return "";
 	}
 	

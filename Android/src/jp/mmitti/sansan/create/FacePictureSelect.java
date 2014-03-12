@@ -1,7 +1,7 @@
 package jp.mmitti.sansan.create;
 
 import jp.mmitti.sansan.R;
-import jp.mmitti.sansan.common.BitmapUtil;
+import jp.mmitti.sansan.common.Utils;
 import jp.mmitti.sansan.common.ImageSelectDialog.OnBitmapRecvdListner;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -38,13 +38,13 @@ public class FacePictureSelect extends LinearLayout implements OnBitmapRecvdList
 	
 	public String dumpImg(){
 		if(bitmap == null)return "";
-		return BitmapUtil.BitmapToBase64(bitmap);
+		return Utils.bitmapToBase64(bitmap);
 	}
 	
 	public void setImage(String json){
 		if(json == "")mImg.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.ic_contact_picture));
 		else{
-			bitmap = BitmapUtil.Base64ToBitmap(json);
+			bitmap = Utils.base64ToBitmap(json);
 			mImg.setImageBitmap(bitmap);
 		}
 	}

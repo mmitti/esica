@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:gravity="center"
-        android:text="顔写真の取得方法を\n選んでください。"
+        android:text="画像の取得方法を\n選んでください。"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
 </LinearLayout>

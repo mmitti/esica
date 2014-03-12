@@ -179,7 +179,7 @@ public class ImageSelectDialog{
 		BitmapFactory.Options op = new Options();
 		op.inJustDecodeBounds = true;
 		Bitmap b = BitmapFactory.decodeFile(path, op);
-		Vec2i size = BitmapUtil.getOptimumMaxSize(new Vec2i(300, 300), new Vec2i(op.outWidth, op.outHeight));
+		Vec2i size = Utils.getOptimumMaxSize(new Vec2i(300, 300), new Vec2i(op.outWidth, op.outHeight));
 		float rate = (float)op.outWidth/size.x;
 		int ret = 1;
 		for(int i = 2; i < rate; i *= 2) {
