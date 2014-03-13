@@ -7,20 +7,78 @@ require "rmagick"
 require "json"
 require "Base64"
 
-family = "金城"
-name = "廣太"
-rubi_family = "Kinjo"
-rubi_name = "Kodai"
-school = "国立沖縄工業高等専門学校"
-department = "メディア情報工学科4年"
-mail = "info.aokabin@gmail.com"
-tel = "090-1943-9827"
-pic = Base64.encode64(File.new("qrcode.png").read)
-back = Base64.encode64(File.new("back.png").read)
-
-h = {"family" => family, "name" => name, "rubi_family" => rubi_family, "rubi_name" => rubi_name, "school" => school, "department" => department, "mail" => mail, "tel" => tel, "pic" => pic, "back" => back}
 
 configure :production do
+end
+
+class MyValidater
+  def validate(obj)
+  end
+end
+
+class StringLengthValidater < MyValidater
+  def initialize(length)
+    @length = length
+  end
+  def validate(str)
+    return str.length <= @length
+  end
+end
+
+class MailAddressValidater < MyValidater
+  def initialize(length)
+    @length = length
+  end
+  def validate(address)
+    if address =~ /^[a-zA-Z0-9_¥.¥-]+@[A-Za-z0-9_¥.¥-]+\.[A-Za-z0-9_¥.¥-]+$/
+      return address.length <= @length 
+    end
+    return false
+  end
+end
+
+class TelephoneValidater < MyValidater
+  def initialize(length)
+    @length = length
+  end
+  def validate(telephone)
+    if telephone =~ /^((\d+)-?)*\d$/
+      return telephone.length <= @length
+    end
+    return false
+  end
+end
+
+class FileSizeValidater < MyValidater
+  def initialize(limit_str)
+    @limit_str = limit_str
+  end
+  def validate(file)
+    return file.length <= @limit_str
+  end
+end
+
+
+
+def validate(request)
+  validater = {
+    "family" => StringLengthValidater.new(10),
+    "name" => StringLengthValidater.new(10),
+    "rubi_family" => StringLengthValidater.new(20),
+    "rubi_name" => StringLengthValidater.new(20),
+    "school" => StringLengthValidater.new(20),
+    "department" => StringLengthValidater.new(20),
+    "mail" => MailAddressValidater.new(100),
+    "tel" => TelephoneValidater.new(15),
+    "pic" => FileSizeValidater.new(100000),     # 1万文字
+    "back" => FileSizeValidater.new(1000000), # 10万文字
+  }
+  validater.each {|key, f|
+    if !f.validate(request[key])
+      return false
+    end
+  }
+  return true
 end
 
 def make_card (hash)
@@ -70,6 +128,10 @@ def make_card (hash)
   context.fill
 
   # 背景
+  f = open("back.png", "wb")
+  f.write(Base64.decode64(hash["back"]))
+  f.close
+
   surface2 = Cairo::ImageSurface.from_png('back.png')
   context.set_source(surface2, 0, 0)   # 原点から画像を描画
   context.paint(back_alpha)
@@ -125,6 +187,10 @@ def make_card (hash)
   context.show_text(mail_str)
 
   # QRコード
+  f = open("qrcode.png", "wb")
+  f.write(Base64.decode64(hash["qrcode"]))
+  f.close
+
   surface2 = Cairo::ImageSurface.from_png('qrcode.png')
   context.set_source(surface2, qrcode_x, qrcode_y)
   context.paint
