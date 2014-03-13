@@ -5,7 +5,7 @@ require "mail"
 require "cairo"
 require "rmagick"
 require "json"
-require "Base64"
+require "base64"
 
 
 configure :production do
@@ -200,11 +200,20 @@ def make_card (hash)
   return Base64.encode64(File.new("data.png").read)
 end
 
-get "/" do
-  erb :make
-end
-
 post "/make" do
   data = {"base64" => make_card(h)}
   data.to_json
+end
+
+post "/" do
+  halt 400 if params["family"].nil?
+  halt 400 if params["name"].nil?
+  halt 400 if params["rubi_family"].nil?
+  halt 400 if params["rubi_name"].nil?
+  halt 400 if params["school"].nil?
+  halt 400 if params["department"].nil?
+  halt 400 if params["mail"].nil?
+  halt 400 if params["tel"].nil?
+  halt 400 if params["pic"].nil?
+  halt 400 if params["back"].nil?
 end
