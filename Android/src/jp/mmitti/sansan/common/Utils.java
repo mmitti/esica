@@ -3,6 +3,8 @@ package jp.mmitti.sansan.common;
 import java.io.ByteArrayOutputStream;
 
 
+import java.io.File;
+
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Bitmap.CompressFormat;
@@ -49,6 +51,17 @@ public class Utils {
 		ret.x = (int) (aspectRatio.x * fact);
 		ret.y = (int) (aspectRatio.y * fact);
 		return ret;
+	}
+	
+	public static void removeFile(File f){
+		if(!f.exists())return;
+		if(f.isDirectory()){
+			File[] l = f.listFiles();
+			for(File ff : l){
+				removeFile(ff);
+			}
+		}
+		f.delete();
 	}
 	
 }

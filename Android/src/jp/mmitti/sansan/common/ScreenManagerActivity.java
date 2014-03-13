@@ -15,21 +15,21 @@ public abstract class ScreenManagerActivity extends Activity implements ScreenMa
 	/**
 	 * 現在表示しているScreen
 	 */
-	private Screen mActiveScreen;
+	protected Screen mActiveScreen;
 	/**
 	 * 現在表示しているScreenのView
 	 */
-	private View mActiveView;
+	protected View mActiveView;
 	/**
 	 * ScreenやそのViewが格納されるStack<BR>
 	 * ここに格納されるのは現在表示していないもの<BR>
 	 * 表示しているものは{@link #mActiveScreen}や{@link #mActiveView}に入る
 	 */
-	private Stack<Pair<Screen, View>> mScreenStack;
+	protected Stack<Pair<Screen, View>> mScreenStack;
 	/**
 	 * 外部から処理を要求するためのハンドラー
 	 */
-	private Handler mHandler;
+	protected Handler mHandler;
 	
 //	private TasQService;
 

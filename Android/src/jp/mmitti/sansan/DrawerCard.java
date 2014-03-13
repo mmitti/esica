@@ -22,6 +22,10 @@ public class DrawerCard extends LinearLayout{
 	private ProgressBar mLoadProgress;
 	private TextView mText;
 	private int mID;
+	public OnCardSelectedListner onCardSelectedListner;
+	private boolean mIsSelected;
+	private LinearLayout mCardFrame;
+	private TextView mSelectText;
 	public DrawerCard(Context context, int id) {
 		super(context);
 		View v = View.inflate(context, R.layout.drawer_card, null);
@@ -34,6 +38,33 @@ public class DrawerCard extends LinearLayout{
 		mText.setVisibility(INVISIBLE);
 		mLoadProgress.setVisibility(INVISIBLE);
 		mID = id;
+		
+		v.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				if(onCardSelectedListner != null)onCardSelectedListner.onCardSelected(mID);
+			}
+		});
+		mCardFrame = (LinearLayout)v.findViewById(R.id.frame);
+		mSelectText = (TextView)v.findViewById(R.id.text_select);
+		changeSelected(false);
+	}
+	
+	public void updateSelecter(int selectedID){
+		changeSelected(selectedID == mID);
+	}
+	
+	public void changeSelected(boolean b){
+		mIsSelected = b;
+		if(b){
+			mCardFrame.setBackgroundResource(R.drawable.drawer_card_selected);
+			mSelectText.setVisibility(VISIBLE);
+		}
+		else{
+			mCardFrame.setBackgroundResource(0);
+			mSelectText.setVisibility(INVISIBLE);
+		}
 	}
 	
 	public void preLoad(){
@@ -79,5 +110,8 @@ public class DrawerCard extends LinearLayout{
 		
 	}
 	
+	public interface OnCardSelectedListner{
+		public void onCardSelected(int id);
+	}
 	
 }

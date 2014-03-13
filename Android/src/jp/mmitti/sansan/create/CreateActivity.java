@@ -6,6 +6,7 @@ import jp.mmitti.sansan.common.ArgData;
 import jp.mmitti.sansan.common.CardData;
 import jp.mmitti.sansan.common.ImageSelectDialog;
 import jp.mmitti.sansan.common.MyAsyncTask;
+import jp.mmitti.sansan.common.ProgramData;
 import jp.mmitti.sansan.common.Screen;
 import jp.mmitti.sansan.common.ScreenManagerActivity;
 import android.R;
@@ -23,22 +24,23 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 public class CreateActivity extends ScreenManagerActivity implements CreateManager {
-
+	public static final int ACTIVITY_CODE = 0xB0014;
 	private ArgData mData;
 	private CardData mCardData;
 	private ImageSelectDialog mImageSelecter;
-	private Load mLoad;
+	private ProgramData mProgramData;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		mImageSelecter = new ImageSelectDialog(this);
-		mLoad = new Load(getHandler());
 		moveScreen(new Screen(){protected ViewGroup initView(ScreenManagerActivity a){return new LinearLayout(a);}});
 
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 	    getActionBar().setHomeButtonEnabled(true);
 	   
-	    mLoad.start();
+	    mProgramData = new ProgramData(this);
+	    mCardData = new CardData();
+	    mData = mCardData.data;
 	    moveScreen(new Init());
 	}
 	
@@ -74,6 +76,7 @@ public class CreateActivity extends ScreenManagerActivity implements CreateManag
 	public void save() {
 		try {
 			mCardData.save();
+			mProgramData.setCurrentID(mCardData.getID());
 		} catch (IOException e) {
 			Toast.makeText(this, "名刺の保存に失敗しました。", Toast.LENGTH_LONG).show();
 		}
@@ -86,44 +89,6 @@ public class CreateActivity extends ScreenManagerActivity implements CreateManag
 	}
 	
 	
-	private class Load extends MyAsyncTask{
-		ProgressDialog mDlg;
-		private int num;
-		public Load(Handler handler) {
-			super(handler);
-			mDlg = new ProgressDialog(CreateActivity.this);
-			mDlg.setMessage("読み込み中");
-		}
-		
-		
-		protected void preProcessOnUI(){
-			mDlg.show();
-			num = -1;
-			Bundle extras = getIntent().getExtras();
-			if(extras != null && extras.containsKey("SRC")){
-				num = extras.getInt("SRC");
-			} 
-		}
-		
-		@Override
-		protected void doBackGround() throws InterruptedException {
-			if(num != -1){
-				mCardData = new CardData(num);
-		    	mData = mCardData.data;
-			}
-			else{
-				mCardData = new CardData();
-				mData = new ArgData();
-			}
-		}
-		
-		
-		protected void onFinishOnUI(){
-			mDlg.dismiss();
-		}
-		
-		
-	}
 	
 
 }

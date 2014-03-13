@@ -1,6 +1,7 @@
 package jp.mmitti.sansan;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
@@ -11,16 +12,22 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import jp.mmitti.sansan.common.ProgramData;
 import jp.mmitti.sansan.common.Screen;
 import jp.mmitti.sansan.common.ScreenManagerActivity;
 import jp.mmitti.sansan.common.VoidScreen;
 import jp.mmitti.sansan.create.CreateActivity;
+import jp.mmitti.sansan.edit.EditActivity;
+import jp.mmitti.sansan.edit.EditPreview;
 
 public class MainScreen extends Screen {
 	
 	private ActionBarDrawerToggle mDrawerToggle;
 	private DrawerLayout mDrawerLayout;
 	private MainDrawer mMainDrawer;
+	private RelativeLayout mContent;
+	private ProgramData mProgramData;
 	@Override
 	protected ViewGroup initView(final ScreenManagerActivity activity) {
 		mDrawerLayout = (DrawerLayout) DrawerLayout.inflate(activity, R.layout.main, null);
@@ -34,19 +41,59 @@ public class MainScreen extends Screen {
 	    activity.getActionBar().setHomeButtonEnabled(true);
 	    mDrawerToggle.syncState();
 	    View v = activity.getActionBar().getCustomView();
+	    mContent = (RelativeLayout)mDrawerLayout.findViewById(R.id.left_draw);
 	    mMainDrawer = (MainDrawer)mDrawerLayout.findViewById(R.id.left_drawer);
-	    mMainDrawer.init(this, mManager.getHandler());
 	    
+	    mProgramData = new ProgramData();
+	    update();
+	    updateOnAdd();
 		return mDrawerLayout;
+	}
+	
+	public void resume(){
+	}
+	
+	private void update(){
+		mContent.removeAllViews();
+
+		mProgramData.update();
+		mMainDrawer.update(mProgramData.getCurrentID());
+		if(mProgramData.getCurrentID() == ProgramData.DEFAULT_INF)mContent.addView(new DummyMainScreen((Activity)mManager, this));
+		else{
+		}
+	}
+	
+	private void updateOnAdd(){
+		mMainDrawer.init(this, mManager.getHandler());
 	}
 	
 	public void addCard(){
 		Activity activity = (Activity)mManager;
 		Intent intent = new Intent(activity, CreateActivity.class);
 		//	intent.putExtra("SRC", 1);
-		activity.startActivity(intent);
+		activity.startActivityForResult(intent, CreateActivity.ACTIVITY_CODE);
 		activity.overridePendingTransition(0, 0);
 		mDrawerLayout.closeDrawers();
+	}
+	
+	public void edit(int id){
+		Activity activity = (Activity)mManager;
+		Intent intent = new Intent(activity, EditActivity.class);
+		intent.putExtra("SRC", id);
+		activity.startActivityForResult(intent, EditActivity.ACTIVITY_CODE);
+		activity.overridePendingTransition(0, 0);
+		mDrawerLayout.closeDrawers();
+	}
+	
+	public void onActivityResult(int requestCode, int resultCode, Intent intent){
+		if(requestCode == EditActivity.ACTIVITY_CODE && resultCode == Activity.RESULT_OK){
+			update();
+			if(intent.getBooleanExtra("EDIT", false))updateOnAdd();
+		}
+		else if(requestCode == CreateActivity.ACTIVITY_CODE && resultCode == Activity.RESULT_OK){
+			update();
+			updateOnAdd();
+		}
 	}
 	
 	@Override

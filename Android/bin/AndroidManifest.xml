@@ -30,6 +30,10 @@
             android:name="jp.mmitti.sansan.create.CreateActivity"
             android:label="@string/app_create" >
         </activity>
+         <activity
+            android:name="jp.mmitti.sansan.edit.EditActivity"
+            android:label="@string/app_edit" >
+        </activity>
     </application>
 
 </manifest>

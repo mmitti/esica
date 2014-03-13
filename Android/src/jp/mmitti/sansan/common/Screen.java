@@ -3,6 +3,7 @@ package jp.mmitti.sansan.common;
 import java.util.EnumSet;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.ViewGroup;
@@ -99,4 +100,6 @@ public abstract class Screen{
 		r.setLayoutParams(new LayoutParams(android.view.ViewGroup.LayoutParams.WRAP_CONTENT, android.view.ViewGroup.LayoutParams.WRAP_CONTENT));
 		return r;
 	}
+	
+	public void onActivityResult(int requestCode, int resultCode, Intent intent){}
 }

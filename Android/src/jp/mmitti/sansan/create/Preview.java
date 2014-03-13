@@ -45,6 +45,7 @@ public class Preview extends CreateScreen {
 		b.setTitle("データを破棄しますか?");
 		b.setPositiveButton("はい", new OnClickListener() {
 			public void onClick(DialogInterface arg0, int arg1) {
+				activity.setResult(Activity.RESULT_CANCELED);
 				activity.finish();
 			}
 		});
@@ -127,7 +128,8 @@ public class Preview extends CreateScreen {
 		
 		protected void onFinishOnUI(){
 			mDlg.dismiss();
-			((Activity)mManager).finish();//TOD 
+			((Activity)mManager).setResult(Activity.RESULT_OK);
+			((Activity)mManager).finish();
 		}
 		
 		

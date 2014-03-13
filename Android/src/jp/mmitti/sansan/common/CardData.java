@@ -8,6 +8,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Stack;
 
 import net.arnx.jsonic.JSON;
 import android.graphics.Bitmap;
@@ -90,6 +91,8 @@ public class CardData {
 		}
 	}
 	
+	public int getID(){return mCurrentNum;}
+	
 	public static List<Integer> getCardList(){
 		List<Integer> list = new LinkedList<Integer>();
 		File f = new File(DIR);
@@ -107,4 +110,11 @@ public class CardData {
 		if(!img.exists())return null;
 		return BitmapFactory.decodeFile(DIR+"/"+num+"/"+IMG);
 	}
+
+	public void remove() {
+		File d = new File(DIR+"/"+mCurrentNum);
+		Utils.removeFile(d);
+	}
+	
+	
 }

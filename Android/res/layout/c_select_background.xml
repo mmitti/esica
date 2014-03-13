@@ -5,7 +5,7 @@
     android:background="#ededed"
     android:padding="5dp">
     <TextView
-    android:id="@+id/textView1"
+    android:id="@+id/text_select"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_alignParentLeft="true"
@@ -39,7 +39,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/textView1"
+        android:layout_below="@+id/text_select"
         android:background="@drawable/default_button_background"
         android:clickable="false"
         android:longClickable="false"

@@ -1,24 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    
     android:layout_width="match_parent"
-    android:layout_height="wrap_content" >
+    android:layout_height="wrap_content"
+    android:background="@drawable/drawer_card_background"
+    android:clickable="true" >
 
-
-
-    <jp.mmitti.sansan.common.MyImageView
-        android:id="@+id/image"
+    <LinearLayout
+        android:id="@+id/frame"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="false"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
         android:layout_margin="10dp"
         android:layout_marginLeft="0dp"
         android:layout_marginTop="0dp"
-        android:paddingBottom="5dp"
-        android:paddingTop="5dp"
+        android:background="@drawable/drawer_card_selected"
+        android:orientation="vertical"
+        android:padding="2dp" >
+
+    <jp.mmitti.sansan.common.MyImageView
+        android:id="@+id/image"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:src="@drawable/dummycard2" />
+
+ </LinearLayout>
   <ProgressBar
         android:id="@+id/loading"
         style="?android:attr/progressBarStyleHorizontal"
@@ -37,7 +46,18 @@
         android:text=""
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textSize="15sp" />
-    
-  
+
+    <TextView
+        android:id="@+id/text_select"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/frame"
+        android:layout_alignRight="@+id/frame"
+        android:layout_marginBottom="2dp"
+        android:layout_marginRight="2dp"
+        android:background="#80FFFFFF"
+        android:padding="2dp"
+        android:text="選択中"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
 
 </RelativeLayout>
