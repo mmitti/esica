@@ -1,10 +1,14 @@
 package jp.mmitti.sansan;
 
+import java.io.IOException;
+
+import android.R.anim;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -13,6 +17,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import jp.mmitti.sansan.common.CardData;
 import jp.mmitti.sansan.common.ProgramData;
 import jp.mmitti.sansan.common.Screen;
 import jp.mmitti.sansan.common.ScreenManagerActivity;
@@ -60,7 +65,18 @@ public class MainScreen extends Screen {
 		mMainDrawer.update(mProgramData.getCurrentID());
 		if(mProgramData.getCurrentID() == ProgramData.DEFAULT_INF)mContent.addView(new DummyMainScreen((Activity)mManager, this));
 		else{
+			mContent.addView(new CurrentMainScreen((Activity)mManager, this, mProgramData.getCurrentID()));
+			try {
+				CardData.cpCard(mProgramData.getCurrentID());
+			} catch (IOException e) {
+				// TODO 自動生成された catch ブロック
+				e.printStackTrace();
+			}
 		}
+	}
+	
+	public void pick(){
+		mDrawerLayout.openDrawer(Gravity.LEFT);
 	}
 	
 	private void updateOnAdd(){
@@ -72,7 +88,7 @@ public class MainScreen extends Screen {
 		Intent intent = new Intent(activity, CreateActivity.class);
 		//	intent.putExtra("SRC", 1);
 		activity.startActivityForResult(intent, CreateActivity.ACTIVITY_CODE);
-		activity.overridePendingTransition(0, 0);
+		activity.overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
 		mDrawerLayout.closeDrawers();
 	}
 	
@@ -81,7 +97,9 @@ public class MainScreen extends Screen {
 		Intent intent = new Intent(activity, EditActivity.class);
 		intent.putExtra("SRC", id);
 		activity.startActivityForResult(intent, EditActivity.ACTIVITY_CODE);
-		activity.overridePendingTransition(0, 0);
+
+
+		activity.overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
 		mDrawerLayout.closeDrawers();
 	}
 	

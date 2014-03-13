@@ -79,7 +79,7 @@ public class ArgData {
 	}
 	
 
-
+	@JSONHint(ignore=true)
 	public String getQRData() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("Name:"+rubi_family+" "+rubi_name+"\n");

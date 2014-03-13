@@ -91,7 +91,7 @@ public class Preview extends CreateScreen {
 		@Override
 		protected void doBackGround() throws InterruptedException {
 			String json = JSON.encode(mManager.getData());
-			String ret = HTTPConnection.Post("pass", json);
+			String ret = HTTPConnection.PostJsonArgToParams("pass", json);
 			Thread.sleep(1000);
 			bitmap = Utils.base64ToBitmap(mManager.getData().back);
 			mManager.make(bitmap);

@@ -13,6 +13,10 @@ public enum ScreenState{
 	 * Stackに積まない
 	 */
 	NO_PUSH_STACK,
+	/**
+	 * フェードインアニメなし
+	 */
+	NO_FADE_IN,
 	
 	
 }

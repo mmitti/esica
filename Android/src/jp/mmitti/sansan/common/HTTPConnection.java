@@ -6,6 +6,11 @@ import java.net.URI;
 import java.net.URISyntaxException;
 
 
+
+import java.util.Map;
+
+import net.arnx.jsonic.JSON;
+
 import org.apache.http.HttpResponse;
 import org.apache.http.ParseException;
 import org.apache.http.auth.AuthScope;
@@ -23,11 +28,22 @@ public class HTTPConnection{
 	private final static String URI = "taskaru-is-fun.cloudapp.net";
 	private final static int PORT = 3000;
 
-	
+	public static String PostJsonArgToParams(String path, String jsonarg){
+		Map<String, String> map = JSON.decode(jsonarg);
+		path+="?";
+		int s = map.size();
+		for(Map.Entry<String, String> e : map.entrySet()){
+			s--;
+			path+=e.getKey()+"="+e.getValue();
+			if(s>0)path+="&";
+		}
+		
+		return Post(path, "");
+	}
 	
 	/**
 	 * 
-	 * @param path http://URI/path.json
+	 * @param path http://URI/path
 	 * @param jsonarg
 	 * @return
 	 */
@@ -35,7 +51,7 @@ public class HTTPConnection{
 		DefaultHttpClient httpClient = new DefaultHttpClient();
 		HttpPost post = null;
 		try{
-			post = new HttpPost(new URI("http://"+URI+":"+PORT+"/"+path+".json"));
+			post = new HttpPost(new URI("http://"+URI+":"+PORT+"/"+path));
 		}catch(URISyntaxException e1){
 			// TODO 自動生成された catch ブロック
 			e1.printStackTrace();
@@ -48,20 +64,12 @@ public class HTTPConnection{
             post.setEntity(body);
 	        post.addHeader("Content-type", "application/json");
             res = httpClient.execute(post);
+            String ret = EntityUtils.toString(res.getEntity(), "UTF-8");
+			httpClient.getConnectionManager().shutdown();
+			return ret;
         } catch (IOException e) {
             e.printStackTrace();
         }
-        try {
-			String ret = EntityUtils.toString(res.getEntity(), "UTF-8");
-			httpClient.getConnectionManager().shutdown();
-			return ret;
-		} catch (ParseException e) {
-			// TODO 自動生成された catch ブロック
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO 自動生成された catch ブロック
-			e.printStackTrace();
-		}
         return "";
 	}
 	

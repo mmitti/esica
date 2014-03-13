@@ -69,11 +69,12 @@ public abstract class ScreenManagerActivity extends Activity implements ScreenMa
 
 	@Override
 	public void moveScreen(Screen s){
+		boolean is_anim = !s.getState().contains(ScreenState.NO_FADE_IN);
 		if(mActiveScreen != null){
 			mActiveScreen.pause();//もしくはfinish
 			AlphaAnimation a = new AlphaAnimation(1.0f, 0);
 			a.setDuration(400);
-			mActiveView.startAnimation(a);
+			if(is_anim)mActiveView.startAnimation(a);
 			mActiveView = null;
 		}
 		mActiveScreen = s;
@@ -85,7 +86,7 @@ public abstract class ScreenManagerActivity extends Activity implements ScreenMa
 		acceptScreenState(mActiveScreen);
 		setContentView(v);
 		mActiveScreen.onCreate();
-		v.startAnimation(a);
+		if(is_anim)v.startAnimation(a);
 	}
 
 	@Override

@@ -26,6 +26,7 @@ public class CardData {
 	private final static String DIR = Environment.getExternalStorageDirectory()+"/mmitti/sansan";
 	private final static String JSON_DATA = "json";
 	private final static String IMG = "png";
+	private final static String CURRENT_IMG = "card.png";
 	public ArgData data;
 	public Bitmap cardImg;
 	private int mCurrentNum;
@@ -112,9 +113,31 @@ public class CardData {
 	}
 
 	public void remove() {
-		File d = new File(DIR+"/"+mCurrentNum);
+		remove(mCurrentNum);
+	}
+	
+	public static void remove(int id){
+		File d = new File(DIR+"/"+id);
 		Utils.removeFile(d);
 	}
 	
+	public void cpCard() throws IOException{
+		cpCard(mCurrentNum);
+	}
+	
+	public static void cpCard(int id) throws IOException{
+		File img = new File(DIR+"/"+id+"/"+IMG);
+		if(img.exists()){
+			File dest = new File(DIR+"/"+CURRENT_IMG);
+			if(img.lastModified()==dest.lastModified() && dest.lastModified() != 0)return;
+			FileInputStream is = new FileInputStream(img);
+			FileOutputStream os = new FileOutputStream(dest, false);
+			byte[] buf = new byte[(int)img.length()];
+			is.read(buf);
+			os.write(buf);
+			is.close();
+			os.close();
+		}
+	}
 	
 }

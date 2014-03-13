@@ -57,7 +57,7 @@ public class EditActivity extends ScreenManagerActivity{
     public void finish(){
 		setResult(Activity.RESULT_OK, mRet);
         super.finish();
-        overridePendingTransition(0, 0);
+        overridePendingTransition(R.anim.remain, android.R.anim.fade_out);
         
     }
 	

@@ -50,7 +50,8 @@ public class CreateActivity extends ScreenManagerActivity implements CreateManag
     public void finish(){
 		
         super.finish();
-        overridePendingTransition(0, 0);
+
+        overridePendingTransition(jp.mmitti.sansan.R.anim.remain,R.anim.fade_out);
         
     }
 	@Override

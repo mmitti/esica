@@ -6,6 +6,7 @@ import jp.mmitti.sansan.common.MyAsyncTask;
 import jp.mmitti.sansan.common.ProgramData;
 import jp.mmitti.sansan.common.Screen;
 import jp.mmitti.sansan.common.ScreenManagerActivity;
+import jp.mmitti.sansan.common.ScreenState;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.app.Dialog;
@@ -34,6 +35,7 @@ public class EditPreview extends Screen implements OnClickListener{
 	
 	public EditPreview(int id){
 		ID = id;
+		mScreenState.add(ScreenState.NO_FADE_IN);
 	}
 	
 	@Override

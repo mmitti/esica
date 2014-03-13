@@ -3,14 +3,36 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#29536f" >
-        
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="5dp"
+        android:text="名刺リスト"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="#FFFFFF" />
+
+        <View
+            android:id="@+id/line"
+            android:layout_width="match_parent"
+            android:layout_height="2px"
+            android:layout_below="@+id/textView1"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:background="#FFFFFF" />
+
 		<ScrollView
 		    android:layout_width="match_parent"
-			android:layout_height="match_parent"
+		    android:layout_height="match_parent"
+		    android:layout_above="@+id/add"
 		    android:layout_alignParentLeft="true"
-			android:layout_alignParentRight="true"
-			android:layout_alignParentTop="true"
-			android:layout_above="@+id/add">
+		    android:layout_alignParentRight="true"
+		    android:layout_alignParentTop="false"
+		    android:layout_below="@+id/line" >
+
 		        <LinearLayout
 		            android:id="@+id/cards"
 		            android:layout_width="match_parent"
