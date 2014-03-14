@@ -1,8 +1,8 @@
 package jp.mmitti.sansan.create;
 
 import jp.mmitti.sansan.R;
-import jp.mmitti.sansan.common.ArgData;
-import jp.mmitti.sansan.common.ScreenManagerActivity;
+import jp.mmitti.sansan.common.data.ArgData;
+import jp.mmitti.sansan.system.ScreenManagerActivity;
 import android.text.InputFilter;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;

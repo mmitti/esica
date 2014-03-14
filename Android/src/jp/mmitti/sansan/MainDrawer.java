@@ -4,9 +4,9 @@ import java.util.LinkedList;
 import java.util.List;
 
 import jp.mmitti.sansan.DrawerCard.OnCardSelectedListner;
-import jp.mmitti.sansan.common.CardData;
-import jp.mmitti.sansan.common.MyAsyncTask;
+import jp.mmitti.sansan.common.data.CardData;
 import jp.mmitti.sansan.create.CreateActivity;
+import jp.mmitti.sansan.system.MyAsyncTask;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
@@ -84,7 +84,7 @@ public class MainDrawer extends LinearLayout implements OnCardSelectedListner{
 		@Override
 		protected void doBackGround() throws InterruptedException {
 			for(DrawerCard dc : mCardList){
-				dc.load();
+				dc.load(mHandler);
 				if(isCancel)dc.cancel();
 			}
 		}

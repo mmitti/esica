@@ -11,11 +11,11 @@ import android.widget.CompoundButton;
 import android.widget.RadioButton;
 import jp.mmitti.sansan.R;
 import jp.mmitti.sansan.common.MyRadioGroup;
-import jp.mmitti.sansan.common.ArgData.PicMode;
 import jp.mmitti.sansan.common.MyRadioGroup.OnRadioCheckedListner;
-import jp.mmitti.sansan.common.MyAsyncTask;
-import jp.mmitti.sansan.common.Screen;
-import jp.mmitti.sansan.common.ScreenManagerActivity;
+import jp.mmitti.sansan.common.data.ArgData.PicMode;
+import jp.mmitti.sansan.system.MyAsyncTask;
+import jp.mmitti.sansan.system.Screen;
+import jp.mmitti.sansan.system.ScreenManagerActivity;
 
 public class SelectPic extends CreateScreen implements OnClickListener {
 	private MyRadioGroup mMode;

@@ -1,4 +1,4 @@
-package jp.mmitti.sansan.common;
+package jp.mmitti.sansan.common.data;
 
 import java.io.DataInputStream;
 import java.io.File;
@@ -10,7 +10,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Stack;
 
+import jp.mmitti.sansan.common.Utils;
 import net.arnx.jsonic.JSON;
+import net.arnx.jsonic.JSONException;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
@@ -27,10 +29,12 @@ import android.os.Environment;
 public class CardData {
 	private final static String DIR = Environment.getExternalStorageDirectory()+"/mmitti/sansan";
 	private final static String JSON_DATA = "json";
+	private final static String META_DATA = "meta";
 	private final static String IMG = "png";
 	private final static String CURRENT_IMG = "card.png";
 	public ArgData data;
 	public Bitmap cardImg;
+	public MetaInfo meta;
 	private int mCurrentNum;
 	public CardData(int num){
 		mCurrentNum = num;
@@ -44,6 +48,7 @@ public class CardData {
 	private void initData(){
 		data = new ArgData();
 		cardImg = null;
+		meta = new MetaInfo();
 	}
 	
 	public CardData(){
@@ -60,20 +65,39 @@ public class CardData {
 			data = JSON.decode(json_is, ArgData.class);
 			json_is.close();
 			
-			cardImg = BitmapFactory.decodeFile(DIR+"/"+mCurrentNum+"/"+IMG);
+			
+			meta = getMetaInfo(mCurrentNum);
+			
+			cardImg = getImage(mCurrentNum);
 		}
 		else throw new FileNotFoundException();
+	}
+	
+	public static MetaInfo getMetaInfo(int id) throws IOException{
+		File meta_data = new File(DIR+"/"+id+"/"+META_DATA);
+		
+		
+		FileInputStream meta_is = new FileInputStream(meta_data);
+		MetaInfo r = JSON.decode(meta_is, MetaInfo.class);
+		meta_is.close();
+		return r;
 	}
 	
 	public void save() throws IOException{
 		new File(DIR+"/"+mCurrentNum).mkdirs();
 		File json = new File(DIR+"/"+mCurrentNum+"/"+JSON_DATA);
+		File meta_data = new File(DIR+"/"+mCurrentNum+"/"+META_DATA);
 		File img = new File(DIR+"/"+mCurrentNum+"/"+IMG);
 		
 		json.createNewFile();
 		FileOutputStream json_os = new FileOutputStream(json, false);
 		JSON.encode(data, json_os, false);
 		json_os.close();
+		
+		meta_data.createNewFile();
+		FileOutputStream meta_os = new FileOutputStream(meta_data, false);
+		JSON.encode(meta, meta_os, false);
+		meta_os.close();
 		
 		img.createNewFile();
 		FileOutputStream img_os = new FileOutputStream(img, false);

@@ -1,4 +1,4 @@
-package jp.mmitti.sansan.common;
+package jp.mmitti.sansan.system;
 
 import java.io.DataInputStream;
 import java.io.IOException;
@@ -7,6 +7,7 @@ import java.net.URISyntaxException;
 
 
 
+import java.net.URLEncoder;
 import java.util.Map;
 
 import net.arnx.jsonic.JSON;
@@ -29,14 +30,16 @@ public class HTTPConnection{
 	private final static int PORT = 3000;
 
 	public static String PostJsonArgToParams(String path, String jsonarg){
-		Map<String, String> map = JSON.decode(jsonarg);
-		path+="?";
-		int s = map.size();
-		for(Map.Entry<String, String> e : map.entrySet()){
-			s--;
-			path+=e.getKey()+"="+e.getValue();
-			if(s>0)path+="&";
-		}
+		try{
+			Map<String, String> map = JSON.decode(jsonarg);
+			path+="?";
+			int s = map.size();
+			for(Map.Entry<String, String> e : map.entrySet()){
+				s--;
+				path+=e.getKey()+"="+URLEncoder.encode(e.getValue(),"UTF-8");
+				if(s>0)path+="&";
+			}
+		}catch(Exception e){}
 		
 		return Post(path, "");
 	}

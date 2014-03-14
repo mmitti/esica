@@ -1,14 +1,17 @@
 package jp.mmitti.sansan.create;
 
 import java.io.IOException;
+import java.util.Calendar;
+import java.util.Locale;
 
-import jp.mmitti.sansan.common.ArgData;
-import jp.mmitti.sansan.common.CardData;
 import jp.mmitti.sansan.common.ImageSelectDialog;
-import jp.mmitti.sansan.common.MyAsyncTask;
-import jp.mmitti.sansan.common.ProgramData;
-import jp.mmitti.sansan.common.Screen;
-import jp.mmitti.sansan.common.ScreenManagerActivity;
+import jp.mmitti.sansan.common.Utils;
+import jp.mmitti.sansan.common.data.ArgData;
+import jp.mmitti.sansan.common.data.CardData;
+import jp.mmitti.sansan.common.data.ProgramData;
+import jp.mmitti.sansan.system.MyAsyncTask;
+import jp.mmitti.sansan.system.Screen;
+import jp.mmitti.sansan.system.ScreenManagerActivity;
 import android.R;
 import android.os.Bundle;
 import android.os.Handler;
@@ -17,6 +20,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.ViewGroup;
@@ -76,6 +80,10 @@ public class CreateActivity extends ScreenManagerActivity implements CreateManag
 	@Override
 	public void save() {
 		try {
+			mCardData.meta.name = mData.family +" "+mData.name;
+			mCardData.meta.school = mData.school;
+			mCardData.meta.department = mData.department;
+			mCardData.meta.date = Calendar.getInstance(Locale.JAPAN);
 			mCardData.save();
 			mProgramData.setCurrentID(mCardData.getID());
 		} catch (IOException e) {

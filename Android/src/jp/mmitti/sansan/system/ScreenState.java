@@ -1,4 +1,4 @@
-package jp.mmitti.sansan.common;
+package jp.mmitti.sansan.system;
 
 /**
  * Screenに関する様々な属性を示すEnum

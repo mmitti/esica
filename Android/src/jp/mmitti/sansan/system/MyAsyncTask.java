@@ -1,4 +1,4 @@
-package jp.mmitti.sansan.common;
+package jp.mmitti.sansan.system;
 
 import android.os.AsyncTask;
 import android.os.Handler;
@@ -28,7 +28,7 @@ public abstract class MyAsyncTask implements Runnable{
 	 */
 	public MyAsyncTask(final Handler handler){
 		mHandler = handler;
-
+		if(handler == null)throw new NullPointerException();
 	}
 
 	/**

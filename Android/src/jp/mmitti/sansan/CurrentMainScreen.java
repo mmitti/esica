@@ -1,6 +1,6 @@
 package jp.mmitti.sansan;
 
-import jp.mmitti.sansan.common.CardData;
+import jp.mmitti.sansan.common.data.CardData;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;

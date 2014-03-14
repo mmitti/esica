@@ -17,14 +17,14 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import jp.mmitti.sansan.common.CardData;
-import jp.mmitti.sansan.common.ProgramData;
-import jp.mmitti.sansan.common.Screen;
-import jp.mmitti.sansan.common.ScreenManagerActivity;
-import jp.mmitti.sansan.common.VoidScreen;
+import jp.mmitti.sansan.common.data.CardData;
+import jp.mmitti.sansan.common.data.ProgramData;
 import jp.mmitti.sansan.create.CreateActivity;
 import jp.mmitti.sansan.edit.EditActivity;
 import jp.mmitti.sansan.edit.EditPreview;
+import jp.mmitti.sansan.system.Screen;
+import jp.mmitti.sansan.system.ScreenManagerActivity;
+import jp.mmitti.sansan.system.VoidScreen;
 
 public class MainScreen extends Screen {
 	

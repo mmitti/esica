@@ -2,12 +2,12 @@ package jp.mmitti.sansan.edit;
 
 import jp.mmitti.sansan.MainActivity;
 import jp.mmitti.sansan.R;
-import jp.mmitti.sansan.common.CardData;
 import jp.mmitti.sansan.common.ImageSelectDialog;
-import jp.mmitti.sansan.common.ProgramData;
-import jp.mmitti.sansan.common.Screen;
-import jp.mmitti.sansan.common.ScreenManagerActivity;
+import jp.mmitti.sansan.common.data.CardData;
+import jp.mmitti.sansan.common.data.ProgramData;
 import jp.mmitti.sansan.create.Init;
+import jp.mmitti.sansan.system.Screen;
+import jp.mmitti.sansan.system.ScreenManagerActivity;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;

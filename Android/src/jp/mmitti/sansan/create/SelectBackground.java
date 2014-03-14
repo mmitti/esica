@@ -4,7 +4,7 @@ import jp.mmitti.sansan.R;
 import jp.mmitti.sansan.common.Utils;
 import jp.mmitti.sansan.common.ImageSelectDialog.OnBitmapRecvdListner;
 import jp.mmitti.sansan.common.MyRadioGroup;
-import jp.mmitti.sansan.common.ScreenManagerActivity;
+import jp.mmitti.sansan.system.ScreenManagerActivity;
 import android.graphics.Bitmap;
 import android.view.View;
 import android.view.ViewGroup;

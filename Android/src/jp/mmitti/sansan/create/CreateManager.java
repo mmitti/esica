@@ -2,9 +2,9 @@ package jp.mmitti.sansan.create;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
-import jp.mmitti.sansan.common.ArgData;
 import jp.mmitti.sansan.common.ImageSelectDialog.OnBitmapRecvdListner;
-import jp.mmitti.sansan.common.ScreenManager;
+import jp.mmitti.sansan.common.data.ArgData;
+import jp.mmitti.sansan.system.ScreenManager;
 
 public interface CreateManager extends ScreenManager {
 	public ArgData getData();

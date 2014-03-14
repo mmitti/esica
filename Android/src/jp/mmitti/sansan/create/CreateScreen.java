@@ -1,8 +1,8 @@
 package jp.mmitti.sansan.create;
 
 import android.view.ViewGroup;
-import jp.mmitti.sansan.common.Screen;
-import jp.mmitti.sansan.common.ScreenManagerActivity;
+import jp.mmitti.sansan.system.Screen;
+import jp.mmitti.sansan.system.ScreenManagerActivity;
 
 public abstract class CreateScreen extends Screen {
 

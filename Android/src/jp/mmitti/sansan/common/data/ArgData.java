@@ -1,4 +1,4 @@
-package jp.mmitti.sansan.common;
+package jp.mmitti.sansan.common.data;
 
 import android.app.Activity;
 import android.content.ContentResolver;
@@ -90,5 +90,18 @@ public class ArgData {
 
 		sb.append("電話番号:"+tel+"\n");
 		return sb.toString();
+	}
+	
+	public void setSpace(){
+		if(family.trim().equals(""))family = " ";
+		if(name.trim().equals(""))name = " ";
+		if(rubi_family.trim().equals(""))rubi_family = " ";
+		if(rubi_name.trim().equals(""))rubi_name = " ";
+		if(school.trim().equals(""))school = " ";
+		if(department.trim().equals(""))department = " ";
+
+		if(tel.trim().equals(""))tel = " ";
+
+		if(mail.trim().equals(""))mail = " ";
 	}
 }

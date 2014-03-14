@@ -4,9 +4,9 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import jp.mmitti.sansan.R;
-import jp.mmitti.sansan.common.Screen;
-import jp.mmitti.sansan.common.ScreenManagerActivity;
-import jp.mmitti.sansan.common.ScreenState;
+import jp.mmitti.sansan.system.Screen;
+import jp.mmitti.sansan.system.ScreenManagerActivity;
+import jp.mmitti.sansan.system.ScreenState;
 
 
 public class Init extends CreateScreen {

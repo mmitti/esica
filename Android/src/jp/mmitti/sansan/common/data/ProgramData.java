@@ -1,4 +1,4 @@
-package jp.mmitti.sansan.common;
+package jp.mmitti.sansan.common.data;
 
 import android.app.Activity;
 import android.content.SharedPreferences;

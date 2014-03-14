@@ -1,12 +1,12 @@
 package jp.mmitti.sansan.edit;
 
 import jp.mmitti.sansan.R;
-import jp.mmitti.sansan.common.CardData;
-import jp.mmitti.sansan.common.MyAsyncTask;
-import jp.mmitti.sansan.common.ProgramData;
-import jp.mmitti.sansan.common.Screen;
-import jp.mmitti.sansan.common.ScreenManagerActivity;
-import jp.mmitti.sansan.common.ScreenState;
+import jp.mmitti.sansan.common.data.CardData;
+import jp.mmitti.sansan.common.data.ProgramData;
+import jp.mmitti.sansan.system.MyAsyncTask;
+import jp.mmitti.sansan.system.Screen;
+import jp.mmitti.sansan.system.ScreenManagerActivity;
+import jp.mmitti.sansan.system.ScreenState;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.app.Activity;
@@ -96,6 +96,10 @@ public class EditPreview extends Screen implements OnClickListener{
 			use.setVisibility(View.INVISIBLE);
 		}
 		
+		TextView t = (TextView)v.findViewById(R.id.text);
+		t.setText(mCardData.meta.getSummary());
+		t = (TextView)v.findViewById(R.id.text_detail);
+		t.setText(mCardData.meta.getDetail());
 		return v;
 	}
 	

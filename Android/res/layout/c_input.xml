@@ -95,7 +95,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-
+				android:hint="学校/会社名"
                 android:imeOptions="actionNext"
                 android:inputType="textNoSuggestions" >
             </EditText>
@@ -109,7 +109,7 @@
                         android:id="@+id/textView3"
                         android:layout_width="80dp"
                         android:layout_height="wrap_content"
-                        android:text="所属・学科"
+                        android:text="所属/学科"
                         android:textAppearance="?android:attr/textAppearanceSmall" />
         
         <EditText
@@ -117,7 +117,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-
+				android:hint="所属/学科"
                 android:imeOptions="actionNext"
                 android:inputType="textNoSuggestions" >
             </EditText>
@@ -140,7 +140,8 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:imeOptions="actionNext"
-            android:inputType="textNoSuggestions|textEmailAddress" >
+            android:inputType="textNoSuggestions|textEmailAddress" 
+            android:hint="Email">
 
             </EditText>
             </LinearLayout>
@@ -163,7 +164,8 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:imeOptions="actionDone"
-            android:inputType="textNoSuggestions|phone" >
+            android:inputType="textNoSuggestions|phone" 
+            android:hint="電話番号">
 
             </EditText>
             </LinearLayout>

@@ -11,8 +11,8 @@ import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 
 import jp.mmitti.sansan.R;
 import jp.mmitti.sansan.common.Utils;
-import jp.mmitti.sansan.common.ArgData;
 import jp.mmitti.sansan.common.ImageSelectDialog.OnBitmapRecvdListner;
+import jp.mmitti.sansan.common.data.ArgData;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Color;

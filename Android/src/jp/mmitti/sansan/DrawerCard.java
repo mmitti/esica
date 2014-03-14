@@ -3,8 +3,8 @@ package jp.mmitti.sansan;
 import java.util.LinkedList;
 import java.util.List;
 
-import jp.mmitti.sansan.common.CardData;
-import jp.mmitti.sansan.common.MyAsyncTask;
+import jp.mmitti.sansan.common.data.CardData;
+import jp.mmitti.sansan.system.MyAsyncTask;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Handler;
@@ -73,9 +73,8 @@ public class DrawerCard extends LinearLayout{
 		mText.setVisibility(VISIBLE);
 		mText.setText("読み込み中です。");
 	}
-	
-	public void load(){
-		Load l = new Load(getHandler());
+	public void load(Handler h){
+		Load l = new Load(h);
 		l.startSync();
 	}
 	
