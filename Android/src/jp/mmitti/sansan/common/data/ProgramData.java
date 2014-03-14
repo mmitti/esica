@@ -1,5 +1,6 @@
 package jp.mmitti.sansan.common.data;
 
+import net.arnx.jsonic.JSON;
 import android.app.Activity;
 import android.content.SharedPreferences;
 
@@ -27,6 +28,18 @@ public class ProgramData {
 		if(mSharedPreferences == null)return;
 		mCurrentID = id;
 		mSharedPreferences.edit().putInt("CID", id).commit();
+	}
+	
+	public void setBasicData(BasicProfileData b){
+		if(mSharedPreferences == null)return;
+		mSharedPreferences.edit().putString("BPD", JSON.encode(b)).commit();
+	}
+	
+	public BasicProfileData getBasicProfileData(){
+		if(mSharedPreferences == null)return null;
+		String json = mSharedPreferences.getString("BPD", "");
+		if(json.equals(""))return null;
+		return JSON.decode(json, BasicProfileData.class);
 	}
 	
 	public void update(){

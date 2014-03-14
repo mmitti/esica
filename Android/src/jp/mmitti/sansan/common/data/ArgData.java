@@ -15,39 +15,8 @@ import net.arnx.jsonic.JSONHint;
  * @author mmitti
  *
  */
-public class ArgData {
-	/**
-	 * 姓
-	 */
-	public String family;
-	/**
-	 * 名
-	 */
-	public String name;
-	/**
-	 * ルビ　姓
-	 */
-	public String rubi_family;
-	/**
-	 * ルビ　名
-	 */
-	public String rubi_name;
-	/**
-	 * 会社名　学校名
-	 */
-	public String school;
-	/**
-	 * 所属
-	 */
-	public String department;
-	/**
-	 * メールアドレス
-	 */
-	public String mail;
-	/**
-	 * 電話番号
-	 */
-	public String tel;
+public class ArgData extends BasicProfileData{
+
 	/**
 	 * 顔写真・QR base64 135 × 135‏
 	 */
@@ -65,20 +34,23 @@ public class ArgData {
 	}
 	
 	public ArgData(){
-		family="";
-		name="";
-		rubi_family = "";
-		rubi_name = "";
-		school = "";
-		department = "";
-		mail = "";
-		tel = "";
+		super();
 		pic = "";
 		back = "";
 		PicMode = PicMode.NONE;
 	}
 	
-
+	public void setBasicProfile(BasicProfileData b){
+		department = b.department;
+		family = b.family;
+		mail = b.mail;
+		name = b.name;
+		rubi_family = b.rubi_family;
+		rubi_name = b.rubi_name;
+		school =b.school;
+		tel = b.tel;
+	}
+	
 	@JSONHint(ignore=true)
 	public String getQRData() {
 		StringBuilder sb = new StringBuilder();
@@ -92,16 +64,5 @@ public class ArgData {
 		return sb.toString();
 	}
 	
-	public void setSpace(){
-		if(family.trim().equals(""))family = " ";
-		if(name.trim().equals(""))name = " ";
-		if(rubi_family.trim().equals(""))rubi_family = " ";
-		if(rubi_name.trim().equals(""))rubi_name = " ";
-		if(school.trim().equals(""))school = " ";
-		if(department.trim().equals(""))department = " ";
 
-		if(tel.trim().equals(""))tel = " ";
-
-		if(mail.trim().equals(""))mail = " ";
-	}
 }

@@ -6,13 +6,23 @@
     android:padding="5dp" >
 
     <TextView
-        android:id="@+id/text_select"
+        android:id="@+id/text_step"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:text="ステップ3/4\n顔写真とQRコード"
+        android:text="ステップ3/4"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+    
+        <TextView
+        android:id="@+id/text_select"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/text_step"
+        android:text="顔写真とQRコード"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <LinearLayout

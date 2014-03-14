@@ -1,7 +1,10 @@
 package jp.mmitti.sansan.edit;
 
+import java.io.IOException;
+
 import jp.mmitti.sansan.R;
 import jp.mmitti.sansan.common.data.CardData;
+import jp.mmitti.sansan.common.data.MetaInfo;
 import jp.mmitti.sansan.common.data.ProgramData;
 import jp.mmitti.sansan.system.MyAsyncTask;
 import jp.mmitti.sansan.system.Screen;
@@ -29,7 +32,6 @@ import android.widget.TextView;
 
 public class EditPreview extends Screen implements OnClickListener{
 	private ProgramData mProgramData;
-	private CardData mCardData;
 	private AlertDialog mRemoveDialog;
 	private Remove mRemove;
 	private int ID;
@@ -46,6 +48,8 @@ public class EditPreview extends Screen implements OnClickListener{
 		use.setOnClickListener(this);
 		Button rm = (Button)v.findViewById(R.id.remove);
 		rm.setOnClickListener(this);
+		Button e = (Button)v.findViewById(R.id.edit);
+		e.setOnClickListener(this);
 		
 		
 		AlertDialog.Builder b = new Builder(activity);
@@ -69,10 +73,9 @@ public class EditPreview extends Screen implements OnClickListener{
 		mRemoveDialog = b.create();
 		mRemove = new Remove(activity.getHandler());
 	
-		mCardData = new CardData(ID);
 		ImageView img = (ImageView)v.findViewById(R.id.image);
 		View img_btn = v.findViewById(R.id.imgbtn);
-		Bitmap bmp = mCardData.cardImg;
+		Bitmap bmp = CardData.getImage(ID);
 		if(bmp == null){
 			img.setImageBitmap(BitmapFactory.decodeResource(activity.getResources(), R.drawable.dummycard2));
 			TextView t = (TextView)v.findViewById(R.id.text_failed);
@@ -95,11 +98,17 @@ public class EditPreview extends Screen implements OnClickListener{
 		if(mProgramData.getCurrentID() == ID){
 			use.setVisibility(View.INVISIBLE);
 		}
-		
+		MetaInfo meta;
 		TextView t = (TextView)v.findViewById(R.id.text);
-		t.setText(mCardData.meta.getSummary());
+		try {
+			meta = CardData.getMetaInfo(ID);
+		
+		
+		t.setText(meta.getSummary());
 		t = (TextView)v.findViewById(R.id.text_detail);
-		t.setText(mCardData.meta.getDetail());
+		t.setText(meta.getDetail());
+		} catch (IOException e1) {
+		}
 		return v;
 	}
 	
@@ -113,6 +122,9 @@ public class EditPreview extends Screen implements OnClickListener{
 				break;
 			case R.id.remove:
 				mRemoveDialog.show();
+				break;
+			case R.id.edit:
+				((EditActivity)mManager).startEdit();
 				break;
 		}
 	}
@@ -130,7 +142,7 @@ public class EditPreview extends Screen implements OnClickListener{
 
 		@Override
 		protected void doBackGround() throws InterruptedException {
-			mCardData.remove();
+			CardData.remove(ID);
 			if(ID == mProgramData.getCurrentID())mProgramData.setCurrentID(ProgramData.DEFAULT_INF);
 		}
 		

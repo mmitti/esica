@@ -82,7 +82,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/image"
-        android:text="2014/03/01作成"
+        android:text="読み込みに失敗しました。"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView
@@ -91,7 +91,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/text"
-        android:text="Medium Text"
+        android:text="詳細な情報は利用できません。"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
 </RelativeLayout>

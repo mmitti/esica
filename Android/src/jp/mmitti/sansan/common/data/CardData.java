@@ -126,8 +126,10 @@ public class CardData {
 		if(!f.exists())return list;
 		File[] files = f.listFiles();
 		for(File s : files){
-			File tmp = new File(s, IMG);
-			if(tmp.exists())list.add(Integer.parseInt(s.getName()));
+			if(!s.isDirectory())continue;
+			try{
+				list.add(Integer.parseInt(s.getName()));
+			}catch(Exception e){}
 		}
 		return list;
 	}

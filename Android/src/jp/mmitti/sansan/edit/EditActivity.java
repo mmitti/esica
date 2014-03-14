@@ -5,6 +5,7 @@ import jp.mmitti.sansan.R;
 import jp.mmitti.sansan.common.ImageSelectDialog;
 import jp.mmitti.sansan.common.data.CardData;
 import jp.mmitti.sansan.common.data.ProgramData;
+import jp.mmitti.sansan.create.CreateActivity;
 import jp.mmitti.sansan.create.Init;
 import jp.mmitti.sansan.system.Screen;
 import jp.mmitti.sansan.system.ScreenManagerActivity;
@@ -35,7 +36,8 @@ public class EditActivity extends ScreenManagerActivity{
 	    getActionBar().setHomeButtonEnabled(true);
 	    Bundle ex = getIntent().getExtras();
 	    if(ex == null)finish();
-	    ID = ex.getInt("SRC");
+	    ID = ex.getInt("SRC", -1);
+	    if(ID == -1)finish();
 	    mProgramData = new ProgramData(this);
 	    moveScreen(new EditPreview(ID));
 		
@@ -61,10 +63,17 @@ public class EditActivity extends ScreenManagerActivity{
         
     }
 	
-	public void edit(){
+	public void finishEdit(){
 		mRet.putExtra("EDIT", true);
 	}
 
+	public void startEdit(){
+		Intent intent = new Intent(this, CreateActivity.class);
+		intent.putExtra("EDIT", ID);
+		this.startActivityForResult(intent, EditActivity.ACTIVITY_CODE);
+
+		this.overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+	}
 	
 
 	public void use() {

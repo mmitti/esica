@@ -7,6 +7,7 @@ import java.util.Locale;
 import jp.mmitti.sansan.common.ImageSelectDialog;
 import jp.mmitti.sansan.common.Utils;
 import jp.mmitti.sansan.common.data.ArgData;
+import jp.mmitti.sansan.common.data.BasicProfileData;
 import jp.mmitti.sansan.common.data.CardData;
 import jp.mmitti.sansan.common.data.ProgramData;
 import jp.mmitti.sansan.system.MyAsyncTask;
@@ -42,10 +43,17 @@ public class CreateActivity extends ScreenManagerActivity implements CreateManag
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 	    getActionBar().setHomeButtonEnabled(true);
 	   
-	    mProgramData = new ProgramData(this);
-	    mCardData = new CardData();
-	    mData = mCardData.data;
-	    moveScreen(new Init());
+	    int id = getIntent().getIntExtra("EDIT", -1);
+	    if(id == -1){
+		    mProgramData = new ProgramData(this);
+		    mCardData = new CardData();
+		    mData = mCardData.data;
+		    BasicProfileData b = mProgramData.getBasicProfileData();
+		    if(b != null)mData.setBasicProfile(b);
+		    moveScreen(new Init());
+	    }else{
+	    	getActionBar().setTitle("編集");
+	    }
 	}
 	
 	//必要があれば既存のデータを復元
@@ -86,6 +94,7 @@ public class CreateActivity extends ScreenManagerActivity implements CreateManag
 			mCardData.meta.date = Calendar.getInstance(Locale.JAPAN);
 			mCardData.save();
 			mProgramData.setCurrentID(mCardData.getID());
+			mProgramData.setBasicData(mData.clone());
 		} catch (IOException e) {
 			Toast.makeText(this, "名刺の保存に失敗しました。", Toast.LENGTH_LONG).show();
 		}

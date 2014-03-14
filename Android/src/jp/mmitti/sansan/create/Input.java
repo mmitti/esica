@@ -53,6 +53,7 @@ public class Input extends CreateScreen implements OnClickListener {
 		Email = (EditText)g.findViewById(R.id.email);
 		
 		Tel = (EditText)g.findViewById(R.id.tel);
+		setData();
 		return g;
 	}
 	
@@ -72,33 +73,37 @@ public class Input extends CreateScreen implements OnClickListener {
 	@Override
 	public void resume(){
 		super.resume();
+		setData();
+	}
+	
+	private void setData(){
 		ArgData d = mManager.getData();
-		Family.setText(d.family);
-		Name.setText(d.name);
-		FamilyRuby.setText(d.rubi_family);
-		NameRuby.setText(d.rubi_name);
+		Family.setText(d.family.trim());
+		Name.setText(d.name.trim());
+		FamilyRuby.setText(d.rubi_family.trim());
+		NameRuby.setText(d.rubi_name.trim());
 		
-		School.setText(d.school);
-		Department.setText(d.department);
+		School.setText(d.school.trim());
+		Department.setText(d.department.trim());
 		
-		Email.setText(d.mail);
-		Tel.setText(d.tel);
+		Email.setText(d.mail.trim());
+		Tel.setText(d.tel.trim());
 	}
 	
 	@Override
 	public void pause(){
 		super.pause();
 		ArgData d = mManager.getData();
-		d.family = Family.getEditableText().toString();
-		d.name = Name.getEditableText().toString();
-		d.rubi_family = FamilyRuby.getEditableText().toString();
-		d.rubi_name = NameRuby.getEditableText().toString();
+		d.family = Family.getEditableText().toString().trim();
+		d.name = Name.getEditableText().toString().trim();
+		d.rubi_family = FamilyRuby.getEditableText().toString().trim();
+		d.rubi_name = NameRuby.getEditableText().toString().trim();
 		
-		d.school = School.getEditableText().toString();
-		d.department = Department.getEditableText().toString();
+		d.school = School.getEditableText().toString().trim();
+		d.department = Department.getEditableText().toString().trim();
 		
-		d.mail = Email.getEditableText().toString();
-		d.tel = Tel.getEditableText().toString();
+		d.mail = Email.getEditableText().toString().trim();
+		d.tel = Tel.getEditableText().toString().trim();
 		
 	}
 	

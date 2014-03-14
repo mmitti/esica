@@ -6,20 +6,29 @@
     android:padding="5dp" >
 
     <TextView
-        android:id="@+id/text_select"
+        android:id="@+id/text_step"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:text="ステップ1/4\n名刺作成ウィザードへようこそ"
+        android:text="ステップ1/4"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+     <TextView
+        android:id="@+id/text_select"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/text_step"
+        android:text="名刺作成ウィザードへようこそ"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/text_select"
+        android:layout_alignParentLeft="true"
         android:layout_below="@+id/text_select"
         android:layout_marginTop="22dp"
         android:text="画面に従うだけで簡単に名刺が作成できます。"
