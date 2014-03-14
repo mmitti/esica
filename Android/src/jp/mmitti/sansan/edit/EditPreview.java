@@ -9,6 +9,7 @@ import jp.mmitti.sansan.common.ScreenManagerActivity;
 import jp.mmitti.sansan.common.ScreenState;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
+import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -39,7 +40,7 @@ public class EditPreview extends Screen implements OnClickListener{
 	}
 	
 	@Override
-	protected ViewGroup initView(ScreenManagerActivity activity) {
+	protected ViewGroup initView(final ScreenManagerActivity activity) {
 		ViewGroup v = (ViewGroup)ViewGroup.inflate(activity, R.layout.edit_menu, null);
 		Button use = (Button)v.findViewById(R.id.use);
 		use.setOnClickListener(this);
@@ -70,13 +71,26 @@ public class EditPreview extends Screen implements OnClickListener{
 	
 		mCardData = new CardData(ID);
 		ImageView img = (ImageView)v.findViewById(R.id.image);
+		View img_btn = v.findViewById(R.id.imgbtn);
 		Bitmap bmp = mCardData.cardImg;
 		if(bmp == null){
 			img.setImageBitmap(BitmapFactory.decodeResource(activity.getResources(), R.drawable.dummycard2));
 			TextView t = (TextView)v.findViewById(R.id.text_failed);
 			t.setVisibility(View.VISIBLE);
+			img_btn.setVisibility(View.INVISIBLE);
 		}
-		else img.setImageBitmap(bmp);
+		else{
+			img.setImageBitmap(bmp);
+			
+			img_btn.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View arg0) {
+					activity.startActivity(CardData.openAs(ID));
+				}
+			});
+			
+		}
 		mProgramData = new ProgramData();
 		if(mProgramData.getCurrentID() == ID){
 			use.setVisibility(View.INVISIBLE);

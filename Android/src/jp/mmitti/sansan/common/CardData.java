@@ -11,9 +11,11 @@ import java.util.List;
 import java.util.Stack;
 
 import net.arnx.jsonic.JSON;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Environment;
 
 /**
@@ -121,14 +123,15 @@ public class CardData {
 		Utils.removeFile(d);
 	}
 	
-	public void cpCard() throws IOException{
-		cpCard(mCurrentNum);
+	public void cpCard(String filename) throws IOException{
+		cpCard(mCurrentNum, filename);
 	}
 	
-	public static void cpCard(int id) throws IOException{
+	public static void cpCard(int id, String filename) throws IOException{
 		File img = new File(DIR+"/"+id+"/"+IMG);
+		if(filename == null) filename = CURRENT_IMG;
 		if(img.exists()){
-			File dest = new File(DIR+"/"+CURRENT_IMG);
+			File dest = new File(DIR+"/"+filename);
 			if(img.lastModified()==dest.lastModified() && dest.lastModified() != 0)return;
 			FileInputStream is = new FileInputStream(img);
 			FileOutputStream os = new FileOutputStream(dest, false);
@@ -138,6 +141,27 @@ public class CardData {
 			is.close();
 			os.close();
 		}
+	}
+	
+	public Intent openAs(){
+		return openAs(mCurrentNum);
+	}
+
+
+	
+	public static Intent openAs(int id){
+		try {
+			cpCard(id, "tmp.png");
+		} catch (IOException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		}
+		Intent intent = new Intent(Intent.ACTION_VIEW);
+		Uri uri = Uri.parse("file://"+new File(DIR+"/tmp.png").getAbsolutePath());
+		intent.setDataAndType(uri, "image/*");
+		intent.putExtra(Intent.EXTRA_STREAM, uri);
+		intent.addCategory(Intent.CATEGORY_DEFAULT);
+		return intent;
 	}
 	
 }

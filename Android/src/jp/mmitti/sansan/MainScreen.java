@@ -67,7 +67,7 @@ public class MainScreen extends Screen {
 		else{
 			mContent.addView(new CurrentMainScreen((Activity)mManager, this, mProgramData.getCurrentID()));
 			try {
-				CardData.cpCard(mProgramData.getCurrentID());
+				CardData.cpCard(mProgramData.getCurrentID(), null);
 			} catch (IOException e) {
 				// TODO 自動生成された catch ブロック
 				e.printStackTrace();
@@ -119,5 +119,7 @@ public class MainScreen extends Screen {
 		if(mDrawerToggle.onOptionsItemSelected(i)) return true;
 		return false;
 	}
+	
+	
 
 }

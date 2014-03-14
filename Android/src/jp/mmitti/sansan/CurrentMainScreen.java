@@ -1,10 +1,13 @@
 package jp.mmitti.sansan;
 
 import jp.mmitti.sansan.common.CardData;
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -13,7 +16,7 @@ import android.widget.LinearLayout.LayoutParams;
 public class CurrentMainScreen  extends LinearLayout{
 	private MainScreen ms;
 	private int ID;
-	public CurrentMainScreen(Context context, MainScreen s, int id) {
+	public CurrentMainScreen(final Context context, MainScreen s, int id) {
 		super(context);
 		ID = id;
 		ms = s;
@@ -35,6 +38,16 @@ public class CurrentMainScreen  extends LinearLayout{
 		});
 		
 		ImageView img = (ImageView)v.findViewById(R.id.image);
+		View img_btn = v.findViewById(R.id.imgbtn);
+		img_btn.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				((Activity)context).startActivity(CardData.openAs(ID));
+			}
+		});
+		
+		
 		Bitmap bmp = CardData.getImage(id);
 		if(bmp == null){
 			;
