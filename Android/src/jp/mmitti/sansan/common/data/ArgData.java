@@ -54,13 +54,13 @@ public class ArgData extends BasicProfileData{
 	@JSONHint(ignore=true)
 	public String getQRData() {
 		StringBuilder sb = new StringBuilder();
-		sb.append("Name:"+rubi_family+" "+rubi_name+"\n");
-		sb.append("名前:"+family+" "+name+"\n");
-		sb.append("学校名/会社名:"+school+"\n");
-		sb.append("学科/部署:"+department+"\n");
-		sb.append("メールアドレス:"+mail+"\n");
+		sb.append("Name : "+rubi_family+" "+rubi_name+"\n");
+		sb.append("名前 : "+family+" "+name+"\n");
+		sb.append("学校名/会社名 : "+school+"\n");
+		sb.append("学科/部署 : "+department+"\n");
+		sb.append("メールアドレス : "+mail+"\n");
 
-		sb.append("電話番号:"+tel+"\n");
+		sb.append("電話番号 : "+tel+"\n");
 		return sb.toString();
 	}
 	

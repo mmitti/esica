@@ -95,7 +95,6 @@ public class Preview extends CreateScreen {
 		@Override
 		protected void doBackGround() throws InterruptedException {
 			ArgData d = mManager.getData();
-			d.setSpace();
 	if(d.back.trim().equals(""))
 		d.back = Utils.bitmapToBase64(BitmapFactory.decodeResource(res, R.drawable.dummy));
 	if(d.pic.trim().equals(""))

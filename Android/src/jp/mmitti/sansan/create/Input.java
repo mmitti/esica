@@ -3,6 +3,7 @@ package jp.mmitti.sansan.create;
 import jp.mmitti.sansan.R;
 import jp.mmitti.sansan.common.data.ArgData;
 import jp.mmitti.sansan.system.ScreenManagerActivity;
+import android.app.Activity;
 import android.text.InputFilter;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
@@ -13,11 +14,15 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class Input extends CreateScreen implements OnClickListener {
 	
-	private InputFilter[] romaFilter = {new RomaInputFilter()};
-	private InputFilter[] kanjiFilter = {new KanjiInputFilter()};
+	private InputFilter[] romaFilter = {new RomaInputFilter(), new InputFilter.LengthFilter(20)};
+	private InputFilter[] kanjiFilter = {new KanjiInputFilter(), new InputFilter.LengthFilter(10)};
+	private InputFilter[] telFilter = {new TelInputFilter(), new InputFilter.LengthFilter(15)};
+	private InputFilter[] emailFilter = {new EmailInputFilter(),new InputFilter.LengthFilter(100)};
+	private InputFilter[] schootFilter = {new InputFilter.LengthFilter(20)};
 
 	private EditText FamilyRuby;
 	private EditText NameRuby;
@@ -50,10 +55,15 @@ public class Input extends CreateScreen implements OnClickListener {
 		School = (EditText)g.findViewById(R.id.school);
 		
 		Department = (EditText)g.findViewById(R.id.dep);
+		School.setFilters(schootFilter);
+		Department.setFilters(schootFilter);
 		
 		Email = (EditText)g.findViewById(R.id.email);
+		Email.setFilters(emailFilter);
 		
 		Tel = (EditText)g.findViewById(R.id.tel);
+		
+		Tel.setFilters(telFilter);
 		setData();
 		
 		TextView step = (TextView)g.findViewById(R.id.text_step);
@@ -72,13 +82,26 @@ public class Input extends CreateScreen implements OnClickListener {
 	public void onClick(View v) {
 		switch(v.getId()){
 		case R.id.next:
-			mManager.changeScreen(new SelectPic());
+			if(check((Activity)mManager))mManager.changeScreen(new SelectPic());
 			break;
 		case R.id.back:
 			mManager.popScreen();
 			break;
 		
 		}
+	}
+	
+	private boolean check(Activity a){
+		//TODO 必須項目及び検証
+		if(!Email.getEditableText().toString().matches("[a-zA-Z0-9_\\.\\-]+@[A-Za-z0-9_\\.\\-]+\\.[A-Za-z0-9_\\.\\-]+")){
+			Toast.makeText(a, "メールアドレスの形式が不正です", Toast.LENGTH_LONG).show();
+			return false;
+		}
+		if(!Tel.getEditableText().toString().matches("^((\\d+)-?)*")){
+			Toast.makeText(a, "電話番号の形式が不正です", Toast.LENGTH_LONG).show();
+			return false;
+		}
+		return true;
 	}
 	
 	@Override
@@ -125,6 +148,43 @@ public class Input extends CreateScreen implements OnClickListener {
 			if(dest instanceof SpannableStringBuilder){
 				SpannableStringBuilder t = (SpannableStringBuilder) dest;
 				if(src.toString().matches("[0-9a-zA-Z@¥.¥_\\-]*")){
+					return src;
+				}
+			}
+			if(dest instanceof SpannedString)return src;
+			
+			return "";
+		}
+		
+	}
+	
+	private class TelInputFilter implements android.text.InputFilter{
+		@Override
+		public CharSequence filter(CharSequence src, int start, int end,
+				Spanned dest, int dstart, int dend){
+			if(dest instanceof SpannableStringBuilder){
+				StringBuilder sb = new StringBuilder();
+				sb.append(dest.toString());
+				sb.insert(dstart, src.toString().subSequence(start, end));
+				String result = sb.toString();
+				if(result.matches("^((\\d+)-?)*")){
+					return src;
+				}
+			}
+			if(dest instanceof SpannedString)return src;
+			
+			return "";
+		}
+		
+	}
+	//[a-zA-Z0-9_\\.\\-]+@[A-Za-z0-9_\\.\\-]+\\.[A-Za-z0-9_\\.\\-]+
+	//最終チェック用
+	private class EmailInputFilter implements android.text.InputFilter{
+		@Override
+		public CharSequence filter(CharSequence src, int start, int end,
+				Spanned dest, int dstart, int dend){
+			if(dest instanceof SpannableStringBuilder){
+				if(src.toString().matches("[a-zA-Z0-9_@\\.\\-]*")){
 					return src;
 				}
 			}

@@ -74,7 +74,7 @@ public class BasicProfileData implements Cloneable{
 	
 
 
-	public void setSpace(){
+	/*public void setSpace(){
 		if(family.trim().equals(""))family = " ";
 		if(name.trim().equals(""))name = " ";
 		if(rubi_family.trim().equals(""))rubi_family = " ";
@@ -85,5 +85,5 @@ public class BasicProfileData implements Cloneable{
 		if(tel.trim().equals(""))tel = " ";
 
 		if(mail.trim().equals(""))mail = " ";
-	}
+	}*/
 }
