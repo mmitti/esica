@@ -15,4 +15,5 @@ public interface CreateManager extends ScreenManager {
 	public void save();
 	
 	public void make(Bitmap img);
+	public boolean isEditMode();
 }

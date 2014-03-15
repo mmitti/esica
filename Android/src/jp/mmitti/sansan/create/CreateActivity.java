@@ -34,6 +34,8 @@ public class CreateActivity extends ScreenManagerActivity implements CreateManag
 	private CardData mCardData;
 	private ImageSelectDialog mImageSelecter;
 	private ProgramData mProgramData;
+	private boolean isEdit;
+	private Load mLoad;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -44,15 +46,20 @@ public class CreateActivity extends ScreenManagerActivity implements CreateManag
 	    getActionBar().setHomeButtonEnabled(true);
 	   
 	    int id = getIntent().getIntExtra("EDIT", -1);
+	    mProgramData = new ProgramData(this);
 	    if(id == -1){
-		    mProgramData = new ProgramData(this);
+		    
 		    mCardData = new CardData();
 		    mData = mCardData.data;
 		    BasicProfileData b = mProgramData.getBasicProfileData();
 		    if(b != null)mData.setBasicProfile(b);
 		    moveScreen(new Init());
+		    isEdit = false;
 	    }else{
 	    	getActionBar().setTitle("編集");
+	    	isEdit = true;
+	    	mLoad = new Load(getHandler(), id);
+	    	mLoad.start();
 	    }
 	}
 	
@@ -93,8 +100,8 @@ public class CreateActivity extends ScreenManagerActivity implements CreateManag
 			mCardData.meta.department = mData.department;
 			mCardData.meta.date = Calendar.getInstance(Locale.JAPAN);
 			mCardData.save();
-			mProgramData.setCurrentID(mCardData.getID());
-			mProgramData.setBasicData(mData.clone());
+			if(!isEdit)mProgramData.setCurrentID(mCardData.getID());
+			mProgramData.setBasicData(mData.clone());//TODO 個々の仕様はどうします？(考えなくてもいいかも
 		} catch (IOException e) {
 			Toast.makeText(this, "名刺の保存に失敗しました。", Toast.LENGTH_LONG).show();
 		}
@@ -107,6 +114,41 @@ public class CreateActivity extends ScreenManagerActivity implements CreateManag
 	}
 	
 	
+	private class Load extends MyAsyncTask{
+		ProgressDialog mDlg;
+		private int num;
+		public Load(Handler handler, int id) {
+			super(handler);
+			num = id;
+			mDlg = new ProgressDialog(CreateActivity.this);
+			mDlg.setMessage("読み込み中");
+		}
+		
+		
+		protected void preProcessOnUI(){
+			mDlg.show();
+			
+		}
+		
+		@Override
+		protected void doBackGround() throws InterruptedException {
+			mCardData = new CardData(num);
+			mData = mCardData.data;
+		}
+		
+		
+		protected void onFinishOnUI(){
+			mDlg.dismiss();
+			moveScreen(new Input());
+		}
 	
+
+	}
+
+
+	@Override
+	public boolean isEditMode() {
+		return isEdit;
+	}
 
 }

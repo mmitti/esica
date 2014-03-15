@@ -9,6 +9,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.RadioButton;
+import android.widget.TextView;
 import jp.mmitti.sansan.R;
 import jp.mmitti.sansan.common.MyRadioGroup;
 import jp.mmitti.sansan.common.MyRadioGroup.OnRadioCheckedListner;
@@ -50,6 +51,14 @@ public class SelectPic extends CreateScreen implements OnClickListener {
 		
 		mMode.checkByID(picModeToId(mManager.getData().PicMode));
 		restore();
+		TextView step = (TextView)g.findViewById(R.id.text_step);
+		
+		if(mManager.isEditMode()){
+			step.setText("ステップ2/3");//TODO 治したい
+		}
+		else{
+			step.setText("ステップ3/4");
+		}
 		return g;
 	}
 	

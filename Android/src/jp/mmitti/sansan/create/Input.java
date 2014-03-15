@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 public class Input extends CreateScreen implements OnClickListener {
 	
@@ -54,6 +55,16 @@ public class Input extends CreateScreen implements OnClickListener {
 		
 		Tel = (EditText)g.findViewById(R.id.tel);
 		setData();
+		
+		TextView step = (TextView)g.findViewById(R.id.text_step);
+		
+		if(mManager.isEditMode()){
+			back.setVisibility(View.INVISIBLE);
+			step.setText("ステップ1/3");//TODO 治したい
+		}
+		else{
+			step.setText("ステップ2/4");
+		}
 		return g;
 	}
 	

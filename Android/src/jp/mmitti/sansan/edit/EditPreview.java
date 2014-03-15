@@ -17,6 +17,7 @@ import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Handler;
@@ -44,8 +45,8 @@ public class EditPreview extends Screen implements OnClickListener{
 	@Override
 	protected ViewGroup initView(final ScreenManagerActivity activity) {
 		ViewGroup v = (ViewGroup)ViewGroup.inflate(activity, R.layout.edit_menu, null);
-		Button use = (Button)v.findViewById(R.id.use);
-		use.setOnClickListener(this);
+		mUse = (Button)v.findViewById(R.id.use);
+		mUse.setOnClickListener(this);
 		Button rm = (Button)v.findViewById(R.id.remove);
 		rm.setOnClickListener(this);
 		Button e = (Button)v.findViewById(R.id.edit);
@@ -73,43 +74,61 @@ public class EditPreview extends Screen implements OnClickListener{
 		mRemoveDialog = b.create();
 		mRemove = new Remove(activity.getHandler());
 	
-		ImageView img = (ImageView)v.findViewById(R.id.image);
-		View img_btn = v.findViewById(R.id.imgbtn);
+		mImg = (ImageView)v.findViewById(R.id.image);
+		mImgButon = v.findViewById(R.id.imgbtn);
+		mRes = activity.getResources();
+		mProgramData = new ProgramData();
+		mTextFailed = (TextView)v.findViewById(R.id.text_failed);
+		mTitle = (TextView)v.findViewById(R.id.text);
+		mMessage = (TextView)v.findViewById(R.id.text_detail);
+		
+		return v;
+	}
+	
+	public void resume(){
+		updateView();
+	}
+	private Button mUse;
+	private Resources mRes;
+	private ImageView mImg;
+	private View mImgButon;
+	private TextView mTextFailed;
+	private TextView mTitle;
+	private TextView mMessage;
+	
+	private void updateView(){
+		mProgramData.update();
 		Bitmap bmp = CardData.getImage(ID);
 		if(bmp == null){
-			img.setImageBitmap(BitmapFactory.decodeResource(activity.getResources(), R.drawable.dummycard2));
-			TextView t = (TextView)v.findViewById(R.id.text_failed);
-			t.setVisibility(View.VISIBLE);
-			img_btn.setVisibility(View.INVISIBLE);
+			mImg.setImageBitmap(BitmapFactory.decodeResource(mRes, R.drawable.dummycard2));
+			mTextFailed.setVisibility(View.VISIBLE);
+			mImgButon.setVisibility(View.INVISIBLE);
 		}
 		else{
-			img.setImageBitmap(bmp);
+			mImg.setImageBitmap(bmp);
 			
-			img_btn.setOnClickListener(new OnClickListener() {
+			mImgButon.setOnClickListener(new OnClickListener() {
 				
 				@Override
 				public void onClick(View arg0) {
-					activity.startActivity(CardData.openAs(ID));
+					((Activity)mManager).startActivity(CardData.openAs(ID));
 				}
 			});
 			
 		}
-		mProgramData = new ProgramData();
 		if(mProgramData.getCurrentID() == ID){
-			use.setVisibility(View.INVISIBLE);
+			mUse.setVisibility(View.INVISIBLE);
 		}
 		MetaInfo meta;
-		TextView t = (TextView)v.findViewById(R.id.text);
+		
 		try {
 			meta = CardData.getMetaInfo(ID);
 		
 		
-		t.setText(meta.getSummary());
-		t = (TextView)v.findViewById(R.id.text_detail);
-		t.setText(meta.getDetail());
+		mTitle.setText(meta.getSummary());
+		mMessage.setText(meta.getDetail());
 		} catch (IOException e1) {
 		}
-		return v;
 	}
 	
 

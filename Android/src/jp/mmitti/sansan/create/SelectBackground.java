@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 public class SelectBackground  extends CreateScreen implements OnClickListener, OnBitmapRecvdListner {
 	private ImageView mImg;
@@ -29,7 +30,14 @@ public class SelectBackground  extends CreateScreen implements OnClickListener, 
 		mImg = (ImageView)g.findViewById(R.id.image);
 		String base64 = mManager.getData().back;
 		mImg.setImageBitmap(Utils.base64ToBitmap(base64));
+		TextView step = (TextView)g.findViewById(R.id.text_step);
 		
+		if(mManager.isEditMode()){
+			step.setText("ステップ3/3");//TODO 治したい
+		}
+		else{
+			step.setText("ステップ4/4");
+		}
 		return g;
 	}
 

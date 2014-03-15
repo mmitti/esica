@@ -47,8 +47,10 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:layout_weight="1"
-            android:background="@drawable/default_button_background"
-            android:text="削除" />
+            android:background="@drawable/damage_button_background"
+            android:text="削除"
+            android:textColor="#FF0000" />
+
     </LinearLayout>
 
     <Button

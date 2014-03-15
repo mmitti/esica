@@ -75,6 +75,12 @@ public class EditActivity extends ScreenManagerActivity{
 		this.overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
 	}
 	
+	protected void onActivityResult(int requestCode, int resultCode, Intent intent) {  
+		if(resultCode == Activity.RESULT_OK && requestCode == EditActivity.ACTIVITY_CODE){
+			finishEdit();
+		}
+	}
+	
 
 	public void use() {
 		mProgramData.setCurrentID(ID);
