@@ -1,6 +1,7 @@
 package jp.mmitti.sansan.create;
 
 import java.util.EnumSet;
+import java.util.Map;
 
 import net.arnx.jsonic.JSON;
 import jp.mmitti.sansan.R;
@@ -101,9 +102,9 @@ public class Preview extends CreateScreen {
 		d.pic = Utils.bitmapToBase64(BitmapFactory.decodeResource(res, R.drawable.dummy_s));
 			//TODO 将来的に不要になる 
 			String json = JSON.encode(d);
-			String ret = HTTPConnection.PostJsonArgToParams("pass", json);
-			Thread.sleep(1000);
-			bitmap = Utils.base64ToBitmap(mManager.getData().back);
+			String ret = HTTPConnection.Post("make", json);
+			Map<String, String>dat = JSON.decode(ret);
+			bitmap = Utils.base64ToBitmap(dat.get("data"));
 			mManager.make(bitmap);
 		}
 		

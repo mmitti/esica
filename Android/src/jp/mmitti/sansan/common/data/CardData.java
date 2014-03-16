@@ -69,6 +69,7 @@ public class CardData {
 			meta = getMetaInfo(mCurrentNum);
 			
 			cardImg = getImage(mCurrentNum);
+			data.PicMode = meta.PicMode;
 		}
 		else throw new FileNotFoundException();
 	}
@@ -84,6 +85,7 @@ public class CardData {
 	}
 	
 	public void save() throws IOException{
+		meta.PicMode = data.PicMode;
 		new File(DIR+"/"+mCurrentNum).mkdirs();
 		File json = new File(DIR+"/"+mCurrentNum+"/"+JSON_DATA);
 		File meta_data = new File(DIR+"/"+mCurrentNum+"/"+META_DATA);

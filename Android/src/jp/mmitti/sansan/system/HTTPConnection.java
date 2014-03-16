@@ -26,10 +26,10 @@ import org.apache.http.util.EntityUtils;
 import android.os.DropBoxManager.Entry;
 
 public class HTTPConnection{
-	private final static String URI = "taskaru-is-fun.cloudapp.net";
-	private final static int PORT = 3000;
+	private final static String URI = "misansan2.cloudapp.net";
+	private final static int PORT = 4567;
 
-	public static String PostJsonArgToParams(String path, String jsonarg){
+	/*public static String PostJsonArgToParams(String path, String jsonarg){
 		try{
 			Map<String, String> map = JSON.decode(jsonarg);
 			path+="?";
@@ -42,7 +42,7 @@ public class HTTPConnection{
 		}catch(Exception e){}
 		
 		return Post(path, "");
-	}
+	}*/
 	
 	/**
 	 * 

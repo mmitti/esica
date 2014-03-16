@@ -44,8 +44,8 @@ public class QRCreate  extends LinearLayout{
 	}
 	
 	public String getQRImage(){
-		Utils.bitmapToBase64(createQR(mManager.getData().getQRData()));
-		return "";
+		return Utils.bitmapToBase64(createQR(mManager.getData().getQRData()));
+		
 	}
 	
 	private Bitmap createQR(String text){

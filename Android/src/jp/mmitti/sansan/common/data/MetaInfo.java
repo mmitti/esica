@@ -5,6 +5,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
+import jp.mmitti.sansan.common.data.ArgData.PicMode;
 import net.arnx.jsonic.JSONHint;
 
 public class MetaInfo {
@@ -13,13 +14,14 @@ public class MetaInfo {
 	public String school;
 	public String department;
 	public Calendar date;
-
+	public PicMode PicMode;
 	
 	public MetaInfo(){
 		name = "";
 		school = "";
 		department = "";
 		date = null;
+		PicMode = PicMode.NONE;
 	}
 	
 	@JSONHint(ignore=true)

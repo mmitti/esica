@@ -19,7 +19,7 @@ import android.widget.Toast;
 public class Input extends CreateScreen implements OnClickListener {
 	
 	private InputFilter[] romaFilter = {new RomaInputFilter(), new InputFilter.LengthFilter(20)};
-	private InputFilter[] kanjiFilter = {new KanjiInputFilter(), new InputFilter.LengthFilter(10)};
+	private InputFilter[] kanjiFilter = {new KanjiInputFilter(), new InputFilter.LengthFilter(5)};
 	private InputFilter[] telFilter = {new TelInputFilter(), new InputFilter.LengthFilter(15)};
 	private InputFilter[] emailFilter = {new EmailInputFilter(),new InputFilter.LengthFilter(100)};
 	private InputFilter[] schootFilter = {new InputFilter.LengthFilter(20)};
