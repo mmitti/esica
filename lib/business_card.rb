@@ -42,13 +42,6 @@ class BusinessCard
     end
   end
 
-  class RequiredText < Text
-    def initialize(*args)
-      super
-      raise ArgumentError, "missing keyword: text" if @text.nil?
-    end
-  end
-
   class Image < Base
     def initialize(
       x:      self.class.const_get(:X),
@@ -144,37 +137,37 @@ class BusinessCard
 
   end
 
-  class RubiFamily < RequiredText
+  class RubiFamily < Text
     X         = 220
     Y         = 150
     FONT_SIZE = 25
   end
 
-  class RubiName < RequiredText
+  class RubiName < Text
     X         = 400
     Y         = 150
     FONT_SIZE = 25
   end
 
-  class School < RequiredText
+  class School < Text
     X         = 220
     Y         = 50
     FONT_SIZE = 25
   end
 
-  class Department < RequiredText
+  class Department < Text
     X         = 300
     Y         = 90
     FONT_SIZE = 25
   end
 
-  class Mail < RequiredText
+  class Mail < Text
     X         = 220
     Y         = 380
     FONT_SIZE = 20
   end
 
-  class Tel < RequiredText
+  class Tel < Text
     X         = 220
     Y         = 350
     FONT_SIZE = 20
