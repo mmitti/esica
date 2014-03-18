@@ -106,16 +106,42 @@ class BusinessCard
     end
   end
 
-  class Family < RequiredText
-    X         = 180
-    Y         = 220
-    FONT_SIZE = 72
-  end
+  # class Family < RequiredText
+  #   X         = 180
+  #   Y         = 220
+  #   FONT_SIZE = 72
+  # end
 
-  class Name < RequiredText
-    X         = 380
+  # class Name < RequiredText
+  #   X         = 380
+  #   Y         = 220
+  #   FONT_SIZE = 72
+  # end
+
+   class Name < RequiredText
+    X         = 190
     Y         = 220
     FONT_SIZE = 72
+
+    case @text.length - @text.count(' ')
+    when 2
+      X = 330
+    when 3
+      X = 260
+    when 4
+      X = 220
+    when 6
+      FONT_SIZE = 65
+    when 7
+      FONT_SIZE = 55
+    when 8
+      FONT_SIZE = 50
+    when 9
+      FONT_SIZE = 45
+    when 10
+      FONT_SIZE = 40
+    end
+
   end
 
   class RubiFamily < RequiredText
