@@ -1,4 +1,8 @@
 .DS_Store
 .bundle
 vendor/bundle
+views/
+*.png
+*.json
+
 
