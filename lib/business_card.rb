@@ -223,7 +223,6 @@ class BusinessCard
     @back.render(@context)
     @school.render(@context)
     @department.render(@context)
-    @family.render(@context)
     @name.render(@context)
     @rubi_family.render(@context)
     @rubi_name.render(@context)

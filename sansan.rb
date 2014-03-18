@@ -101,9 +101,14 @@ get "/business_card.png" do
   pic = tempfile ["pic", "png"], input_data["pic"]
   back = tempfile ["back", "png"], input_data["back"]
 
+  if input_data["family"].length + input_data["name"] == 2
+    full_name = input_data["family"] + "  " + input_data["name"]    
+  else
+    full_name = input_data["family"] + " " + input_data["name"]
+  end
+
   business_card = BusinessCard.new(
-    family:      BusinessCard::Family.new(text: input_data["family"]),
-    name:        BusinessCard::Name.new(text: input_data["name"]),
+    name:        BusinessCard::Name.new(text: full_name),
     rubi_family: BusinessCard::RubiFamily.new(text: input_data["rubi_family"]),
     rubi_name:   BusinessCard::RubiName.new(text: input_data["rubi_name"]),
     school:      BusinessCard::School.new(text: input_data["school"]),
