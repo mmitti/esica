@@ -28,6 +28,7 @@ class MailAddressValidator < MyValidator
   end
   def validate(address)
     if address =~ /^[a-zA-Z0-9_¥.¥-]+@[A-Za-z0-9_¥.¥-]+\.[A-Za-z0-9_¥.¥-]+$/
+    # if address =~ /^(?:(?:(?:(?:[a-zA-Z0-9_!#\$\%&'*+/=?\^`{}~|\-]+)(?:\.(?:[a-zA-Z0-9_!#\$\%&'*+/=?\^`{}~|\-]+))*)|(?:"(?:\\[^\r\n]|[^\\"])*")))\@(?:(?:(?:(?:[a-zA-Z0-9_!#\$\%&'*+/=?\^`{}~|\-]+)(?:\.(?:[a-zA-Z0-9_!#\$\%&'*+/=?\^`{}~|\-]+))*)|(?:\[(?:\\\S|[\x21-\x5a\x5e-\x7e])*\])))$/ 
       return address.length <= @length 
     end
     return false
@@ -55,8 +56,6 @@ class FileSizeValidator < MyValidator
   end
 end
 
-
-
 def validate(request)
   validator = {
     "family" =>      StringLengthValidater.new(10),
@@ -67,8 +66,8 @@ def validate(request)
     "department" =>  StringLengthValidater.new(20),
     "mail" =>        MailAddressValidater.new(100),
     "tel" =>         TelephoneValidater.new(15),
-    "pic" =>         FileSizeValidater.new(100000),     # 1万文字
-    "back" =>        FileSizeValidater.new(1000000), # 10万文字
+    "pic" =>         FileSizeValidater.new(100000),  # 10万文字
+    "back" =>        FileSizeValidater.new(1000000), # 100万文字
   }
   validator.each {|key, f|
     if !f.validate(request[key])
