@@ -4,6 +4,7 @@ require "base64"
 require "sinatra"
 require "tempfile"
 require "business_card"
+require "json"
 
 configure :production do
 end
@@ -90,23 +91,25 @@ helpers do
 end
 
 get "/business_card.png" do
-  BusinessCard.keys.each do |key|
-    halt 400 if params[key].nil?
-  end
-  halt 400 unless validate(params)
+  input_data = JSON.parse request.body.read
 
-  pic = tempfile ["pic", "png"], params["pic"]
-  back = tempfile ["back", "png"], params["back"]
+  BusinessCard.keys.each do |key|
+    halt 400 if input_data[key].nil?
+  end
+  halt 400 unless validate(input_data)
+
+  pic = tempfile ["pic", "png"], input_data["pic"]
+  back = tempfile ["back", "png"], input_data["back"]
 
   business_card = BusinessCard.new(
-    family:      BusinessCard::Family.new(text: params["family"]),
-    name:        BusinessCard::Name.new(text: params["name"]),
-    rubi_family: BusinessCard::RubiFamily.new(text: params["rubi_family"]),
-    rubi_name:   BusinessCard::RubiName.new(text: params["rubi_name"]),
-    school:      BusinessCard::School.new(text: params["school"]),
-    department:  BusinessCard::Department.new(text: params["department"]),
-    tel:         BusinessCard::Tel.new(text: params["tel"]),
-    mail:        BusinessCard::Mail.new(text: params["mail"]),
+    family:      BusinessCard::Family.new(text: input_data["family"]),
+    name:        BusinessCard::Name.new(text: input_data["name"]),
+    rubi_family: BusinessCard::RubiFamily.new(text: input_data["rubi_family"]),
+    rubi_name:   BusinessCard::RubiName.new(text: input_data["rubi_name"]),
+    school:      BusinessCard::School.new(text: input_data["school"]),
+    department:  BusinessCard::Department.new(text: input_data["department"]),
+    tel:         BusinessCard::Tel.new(text: input_data["tel"]),
+    mail:        BusinessCard::Mail.new(text: input_data["mail"]),
     pic:         BusinessCard::Pic.new(path: pic ? pic.path : nil),
     back:        BusinessCard::Back.new(path: back ? back.path : nil)
   )
