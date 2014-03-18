@@ -85,7 +85,7 @@
         android:layout_alignParentRight="true"
         android:layout_below="@+id/linearLayout1" >
 
-        <jp.mmitti.sansan.create.FacePictureSelect
+        <jp.mmitti.esica.create.FacePictureSelect
             android:id="@+id/facePictureSelect"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -95,8 +95,8 @@
             android:layout_alignParentTop="true"
             android:layout_marginTop="0dp" >
 
-        </jp.mmitti.sansan.create.FacePictureSelect>
- 		<jp.mmitti.sansan.create.QRCreate
+        </jp.mmitti.esica.create.FacePictureSelect>
+ 		<jp.mmitti.esica.create.QRCreate
         	android:id="@+id/qRCreate"
         	android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -105,7 +105,7 @@
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
             android:layout_marginTop="0dp" >
-    	</jp.mmitti.sansan.create.QRCreate>
+    	</jp.mmitti.esica.create.QRCreate>
     </RelativeLayout>
 
 </RelativeLayout>

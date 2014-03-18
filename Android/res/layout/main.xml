@@ -15,12 +15,12 @@
     </RelativeLayout>
  
     <!-- The navigation drawer -->
-   <jp.mmitti.sansan.MainDrawer
+   <jp.mmitti.esica.MainDrawer
         android:id="@+id/left_drawer"
         android:layout_width="240dp"
         android:layout_height="match_parent"
         android:layout_gravity="left"
         android:background="#29536f" >
-        </jp.mmitti.sansan.MainDrawer>
+        </jp.mmitti.esica.MainDrawer>
     
 </android.support.v4.widget.DrawerLayout>
