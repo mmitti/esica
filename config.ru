@@ -1,5 +1,3 @@
-$:.unshift(File.dirname(__FILE__))
+require File.join(__dir__, "sansan.rb")
 
-require "sansan"
-
-run Sinatra::Application
+run Esica

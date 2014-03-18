@@ -1,114 +1,106 @@
 $LOAD_PATH.unshift File.join(__dir__, "lib")
 
 require "base64"
-require "sinatra"
+require "json"
 require "tempfile"
+require "sinatra/base"
+require "sinatra/contrib"
 require "business_card"
 
-configure :production do
-end
+class Esica < Sinatra::Base
+  configure :development do
+    register Sinatra::Reloader
+  end
 
-class MyValidator
-  def validate(obj)
-  end
-end
-
-class StringLengthValidator < MyValidator
-  def initialize(length)
-    @length = length
-  end
-  def validate(str)
-    return str.length <= @length
-  end
-end
-
-class MailAddressValidator < MyValidator
-  def initialize(length)
-    @length = length
-  end
-  def validate(address)
-    if address =~ /^[a-zA-Z0-9_¥.¥-]+@[A-Za-z0-9_¥.¥-]+\.[A-Za-z0-9_¥.¥-]+$/
-    # if address =~ /^(?:(?:(?:(?:[a-zA-Z0-9_!#\$\%&'*+/=?\^`{}~|\-]+)(?:\.(?:[a-zA-Z0-9_!#\$\%&'*+/=?\^`{}~|\-]+))*)|(?:"(?:\\[^\r\n]|[^\\"])*")))\@(?:(?:(?:(?:[a-zA-Z0-9_!#\$\%&'*+/=?\^`{}~|\-]+)(?:\.(?:[a-zA-Z0-9_!#\$\%&'*+/=?\^`{}~|\-]+))*)|(?:\[(?:\\\S|[\x21-\x5a\x5e-\x7e])*\])))$/ 
-      return address.length <= @length 
+  module Validator
+    class Base
+      def initialize(length)
+        @length = length
+      end
     end
-    return false
-  end
-end
 
-class TelephoneValidator < MyValidator
-  def initialize(length)
-    @length = length
-  end
-  def validate(telephone)
-    if telephone =~ /^((\d+)-?)*\d$/
-      return telephone.length <= @length
+    class StringLength < Base
+      def validate(str)
+        str.length <= @length
+      end
     end
-    return false
-  end
-end
 
-class FileSizeValidator < MyValidator
-  def initialize(limit_str)
-    @limit_str = limit_str
-  end
-  def validate(file)
-    return file.length <= @limit_str
-  end
-end
-
-def validate(request)
-  validator = {
-    "family" =>      StringLengthValidater.new(10),
-    "name" =>        StringLengthValidater.new(10),
-    "rubi_family" => StringLengthValidater.new(20),
-    "rubi_name" =>   StringLengthValidater.new(20),
-    "school" =>      StringLengthValidater.new(20),
-    "department" =>  StringLengthValidater.new(20),
-    "mail" =>        MailAddressValidater.new(100),
-    "tel" =>         TelephoneValidater.new(15),
-    "pic" =>         FileSizeValidater.new(100000),  # 10万文字
-    "back" =>        FileSizeValidater.new(1000000), # 100万文字
-  }
-  validator.each {|key, f|
-    if !f.validate(request[key])
-      return false
+    class MailAddress < Base
+      def validate(address)
+        if address =~ /^[a-zA-Z0-9_¥.¥-]+@[A-Za-z0-9_¥.¥-]+\.[A-Za-z0-9_¥.¥-]+$/
+          return address.length <= @length 
+        end
+        false
+      end
     end
-  }
-  return true
-end
 
-helpers do
-  def tempfile(name, content)
-    if content.empty?
-      nil
-    else
-      tempfile = Tempfile.new(name)
-      tempfile.write(Base64.decode(content))
-      tempfile
+    class Telephone < Base
+      def validate(telephone)
+        if telephone =~ /^((\d+)-?)*\d$/
+          return telephone.length <= @length
+        end
+        false
+      end
+    end
+
+    class FileSize < Base
+      def validate(file)
+        file.length <= @length
+      end
     end
   end
-end
 
-get "/business_card.png" do
-  BusinessCard.keys.each do |key|
-    halt 400 if params[key].nil?
+  helpers do
+    def tempfile(name, content)
+      if content.empty?
+        nil
+      else
+        tempfile = Tempfile.new(name)
+        tempfile.write(Base64.decode(content))
+        tempfile
+      end
+    end
+
+    def validate(request)
+      validators = {
+        "name" =>        Validator::StringLength.new(10),
+        "rubi_family" => Validator::StringLength.new(20),
+        "rubi_name" =>   Validator::StringLength.new(20),
+        "school" =>      Validator::StringLength.new(20),
+        "department" =>  Validator::StringLength.new(20),
+        "mail" =>        Validator::MailAddress.new(100),
+        "tel" =>         Validator::Telephone.new(15),
+        "pic" =>         Validator::FileSize.new(100000),  # 10万文字
+        "back" =>        Validator::FileSize.new(1000000), # 100万文字
+      }
+      validators.each do |key, validator|
+        return false unless validator.validate(request[key])
+      end
+      true
+    end
   end
-  halt 400 unless validate(params)
 
-  pic = tempfile ["pic", "png"], params["pic"]
-  back = tempfile ["back", "png"], params["back"]
+  post "/business_card.png" do
+    parameters = JSON.parse(request.body.read)
 
-  business_card = BusinessCard.new(
-    family:      BusinessCard::Family.new(text: params["family"]),
-    name:        BusinessCard::Name.new(text: params["name"]),
-    rubi_family: BusinessCard::RubiFamily.new(text: params["rubi_family"]),
-    rubi_name:   BusinessCard::RubiName.new(text: params["rubi_name"]),
-    school:      BusinessCard::School.new(text: params["school"]),
-    department:  BusinessCard::Department.new(text: params["department"]),
-    tel:         BusinessCard::Tel.new(text: params["tel"]),
-    mail:        BusinessCard::Mail.new(text: params["mail"]),
-    pic:         BusinessCard::Pic.new(path: pic ? pic.path : nil),
-    back:        BusinessCard::Back.new(path: back ? back.path : nil)
-  )
-  send_file(business_card.make, type: "image/png")
+    BusinessCard.keys.each do |key|
+      halt 400 if parameters[key].nil?
+    end
+    halt 400 unless validate(parameters)
+
+    pic  = tempfile ["pic", "png"], parameters["pic"]
+    back = tempfile ["back", "png"], parameters["back"]
+
+    business_card = BusinessCard.new(
+      name:        BusinessCard::Name.new(text: parameters["name"]),
+      rubi_name:   BusinessCard::RubiName.new(text: parameters["rubi_name"]),
+      school:      BusinessCard::School.new(text: parameters["school"]),
+      department:  BusinessCard::Department.new(text: parameters["department"]),
+      tel:         BusinessCard::Tel.new(text: parameters["tel"]),
+      mail:        BusinessCard::Mail.new(text: parameters["mail"]),
+      pic:         BusinessCard::Pic.new(path: pic ? pic.path : nil),
+      back:        BusinessCard::Back.new(path: back ? back.path : nil)
+    )
+    send_file(business_card.make, type: "image/png")
+  end
 end

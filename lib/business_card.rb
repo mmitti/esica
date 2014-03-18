@@ -4,9 +4,12 @@ require "rmagick"
 
 class BusinessCard
   class Base
-    def initialize(x: self.class.const_get(:X), y: self.class.const_get(:Y))
-      @x = x
-      @y = y
+    def x
+      @x ||= self.class.const_get(:X)
+    end
+
+    def y
+      @y ||= self.class.const_get(:Y)
     end
   end
 
@@ -15,19 +18,20 @@ class BusinessCard
     G = 0
     B = 0
 
-    def initialize(
-      x:    self.class.const_get(:X),
-      y:    self.class.const_get(:Y),
-      r:    self.class.const_get(:R),
-      g:    self.class.const_get(:G),
-      b:    self.class.const_get(:B),
-      text: nil
-    )
-      super(x: x, y: y)
-      @r    = r
-      @g    = g
-      @b    = b
+    def initialize(text: nil)
       @text = text
+    end
+
+    def r
+      @r ||= self.class.const_get(:R)
+    end
+
+    def g
+      @g ||= self.class.const_get(:G)
+    end
+
+    def b
+      @b ||= self.class.const_get(:B)
     end
 
     def font_size
@@ -35,112 +39,98 @@ class BusinessCard
     end
 
     def render(context)
-      context.set_source_rgb(@r, @g, @b)
+      context.set_source_rgb(self.r, self.g, self.b)
       context.font_size = font_size
-      context.move_to(@x, @y)
+      context.move_to(self.x, self.y)
       context.show_text(@text)
     end
   end
 
   class Image < Base
-    def initialize(
-      x:      self.class.const_get(:X),
-      y:      self.class.const_get(:Y),
-      width:  self.class.const_get(:WIDTH),
-      height: self.class.const_get(:HEIGHT),
-      alpha:  self.class.const_get(:ALPHA),
-      path:   nil
-    )
-      super(x: x, y: y)
-      @width  = width
-      @height = height
-      @alpha  = alpha
-      @path   = path
+    def initialize(path: nil)
+      @path = path
 
       unless @path.nil?
         image = Magick::Image.read(@path).first
-        image.resize!(@width, @height)
-        image.write(@path)
+        image.resize!(self.width, self.height)
+        image.write(self.path)
       end
+    end
+
+    def width
+      @width ||= self.class.const_get(:WIDTH)
+    end
+
+    def height
+      @height ||= self.class.const_get(:HEIGHT)
+    end
+
+    def alpha
+      @alpha ||= self.class.const_get(:ALPHA)
     end
 
     def render(context)
       unless @path.nil?
-        context.set_source(Cairo::ImageSurface.from_png(@path), @x, @y)
-        context.paint(@alpha)
+        context.set_source(Cairo::ImageSurface.from_png(@path), self.x, self.y)
+        context.paint(self.alpha)
       end
     end
   end
 
   class BackgroundImage < Image
-    def initialize(
-      x:      self.class.const_get(:X),
-      y:      self.class.const_get(:Y),
-      width:  self.class.const_get(:WIDTH),
-      height: self.class.const_get(:HEIGHT),
-      alpha:  self.class.const_get(:ALPHA),
-      path:   nil,
-      r:      self.class.const_get(:R),
-      g:      self.class.const_get(:G),
-      b:      self.class.const_get(:B)
-    )
-      super(x: x, y: y, width: width, height: height, alpha: alpha, path: path)
-      @r = r
-      @g = g
-      @b = b
+    def r
+      @r ||= self.class.const_get(:R)
+    end
+
+    def g
+      @g ||= self.class.const_get(:G)
+    end
+
+    def b
+      @b ||= self.class.const_get(:B)
     end
 
     def render(context)
       if super.nil?
-        context.set_source_rgb(@r, @g, @b)
-        context.rectangle(@x, @y, @width, @height)
+        context.set_source_rgb(self.r, self.g, self.b)
+        context.rectangle(self.x, self.y, self.width, self.height)
         context.fill
       end
     end
   end
 
-  # class Family < RequiredText
-  #   X         = 180
-  #   Y         = 220
-  #   FONT_SIZE = 72
-  # end
+  class Name < Text
+    Y  = 220
 
-  # class Name < RequiredText
-  #   X         = 380
-  #   Y         = 220
-  #   FONT_SIZE = 72
-  # end
-
-   class Name < RequiredText
-    X         = 190
-    Y         = 220
-    FONT_SIZE = 72
-
-    case @text.length - @text.count(' ')
-    when 2
-      X = 330
-    when 3
-      X = 260
-    when 4
-      X = 220
-    when 6
-      FONT_SIZE = 65
-    when 7
-      FONT_SIZE = 55
-    when 8
-      FONT_SIZE = 50
-    when 9
-      FONT_SIZE = 45
-    when 10
-      FONT_SIZE = 40
+    def x
+      case @text.length - @text.count(' ')
+      when 2
+        330
+      when 3
+        260
+      when 4
+        220
+      else
+        190
+      end
     end
 
-  end
-
-  class RubiFamily < Text
-    X         = 220
-    Y         = 150
-    FONT_SIZE = 25
+    def font_size
+      case @text.length - @text.count(' ')
+      when 6
+        65
+      when 7
+        55
+      when 8
+        50
+      when 9
+        45
+      when 10
+        40
+      else
+        72
+      end
+    end
   end
 
   class RubiName < Text
@@ -198,9 +188,7 @@ class BusinessCard
   FONT_FACE = "Osaka"
 
   def initialize(
-    family:      nil,
     name:        nil,
-    rubi_family: nil,
     rubi_name:   nil,
     school:      nil,
     department:  nil,
@@ -223,9 +211,7 @@ class BusinessCard
     @back.render(@context)
     @school.render(@context)
     @department.render(@context)
-    @family.render(@context)
     @name.render(@context)
-    @rubi_family.render(@context)
     @rubi_name.render(@context)
     @tel.render(@context)
     @mail.render(@context)
@@ -239,9 +225,7 @@ class BusinessCard
   class << self
     def keys
       @keys ||= [
-        "family",
         "name",
-        "rubi_family",
         "rubi_name",
         "school",
         "department",
