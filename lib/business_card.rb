@@ -1,6 +1,6 @@
 require "tempfile"
 require "cairo"
-require "rmagick"
+require "RMagick"
 
 class BusinessCard
   class Base
