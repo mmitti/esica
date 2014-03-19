@@ -56,9 +56,6 @@ class Esica < Sinatra::Base
         nil
       else
         tempfile = Tempfile.new(name)
-        f = open("json.png", "wb")
-        f.write(Base64.decode64(content))
-        f.close
         tempfile.write(Base64.decode64(content))
         tempfile
       end
@@ -84,10 +81,7 @@ class Esica < Sinatra::Base
   end
 
   post "/business_card.png" do
-    f = open("json.txt", "w")
-    f.write("soichiro")
     parameters = JSON.parse(request.body.read)
-    p parameters
 
     BusinessCard.keys.each do |key|
       halt 400 if parameters[key].nil?
@@ -96,29 +90,22 @@ class Esica < Sinatra::Base
 
     pic  = tempfile ["pic", ".png"], parameters["pic"]
     pic.read
-    # `open #{pic.path}`
-    # back = tempfile ["back", ".png"], parameters["back"]
-    # f.write(parameters["school"])
+    back = tempfile ["back", ".png"], parameters["back"]
 
-    # business_card = BusinessCard.new(
-    #  name:        BusinessCard::Name.new(text: parameters["name"]),
-    #  rubi_name:   BusinessCard::RubiName.new(text: parameters["rubi_name"]),
-    #  school:      BusinessCard::School.new(text: parameters["school"]),
-    #  department:  BusinessCard::Department.new(text: parameters["department"]),
-    #  tel:         BusinessCard::Tel.new(text: parameters["tel"]),
-    #  mail:        BusinessCard::Mail.new(text: parameters["mail"]),
-    #  pic:         BusinessCard::Pic.new(path: pic ? pic.path : nil),
-    #  back:        BusinessCard::Back.new(path: back ? back.path : nil)
-    #)
-    #f.write("business_card init")
-    #f.close
+    business_card = BusinessCard.new(
+     name:        BusinessCard::Name.new(text: parameters["name"]),
+     rubi_name:   BusinessCard::RubiName.new(text: parameters["rubi_name"]),
+     school:      BusinessCard::School.new(text: parameters["school"]),
+     department:  BusinessCard::Department.new(text: parameters["department"]),
+     tel:         BusinessCard::Tel.new(text: parameters["tel"]),
+     mail:        BusinessCard::Mail.new(text: parameters["mail"]),
+     pic:         BusinessCard::Pic.new(path: pic ? pic.path : nil),
+     back:        BusinessCard::Back.new(path: back ? back.path : nil)
+    )
     # send_file(business_card.make, type: "image/png")
-    #f = open("data.png", "wb")
-    #f.write(business_card.make)
-    #f.close
-    #str = Base64.encode64(File.new("data.png").read)
+    str = Base64.encode64(File.new("data.png").read)
 
-    #data = {"data" => str}
-    #data.to_json
+    data = {"data" => str}
+    data.to_json
   end
 end
