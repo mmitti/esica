@@ -51,7 +51,8 @@ class BusinessCard
       @path = path
 
       unless @path.nil?
-        image = Magick::Image.read(@path).first
+        # image = Magick::Image.read(File.binread(@path)).first
+        image = Magick::ImageList.new(@path)
         image.resize!(self.width, self.height)
         image.write(@path)
       end
