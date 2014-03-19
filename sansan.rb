@@ -56,7 +56,7 @@ class Esica < Sinatra::Base
         nil
       else
         tempfile = Tempfile.new(name)
-        f = open("json.png")
+        f = open("json.png", "wb")
         f.write(Base64.decode64(content))
         f.close
         tempfile.write(Base64.decode64(content))
