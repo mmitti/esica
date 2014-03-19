@@ -109,6 +109,7 @@ class Esica < Sinatra::Base
       pic:         BusinessCard::Pic.new(path: pic ? pic.path : nil),
       back:        BusinessCard::Back.new(path: back ? back.path : nil)
     )
-    send_file(business_card.make, type: "image/png")
+    # send_file(business_card.make, type: "image/png")
+    Base64.encode64(File.new(business_card.make).read)
   end
 end
