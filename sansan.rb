@@ -95,7 +95,7 @@ class Esica < Sinatra::Base
     halt 400 unless validate(parameters)
 
     pic  = tempfile ["pic", ".png"], parameters["pic"]
-    `cp #{pic.path} test.png`
+    `open #{pic.path}`
     back = tempfile ["back", ".png"], parameters["back"]
 
     business_card = BusinessCard.new(
