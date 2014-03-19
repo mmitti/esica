@@ -81,7 +81,12 @@ class Esica < Sinatra::Base
   end
 
   post "/business_card.png" do
+    f = open("json.txt", "w")
+    f.write("soichiro")
     parameters = JSON.parse(request.body.read)
+
+    f.write(parameters["name"])
+    f.close
 
     BusinessCard.keys.each do |key|
       halt 400 if parameters[key].nil?
