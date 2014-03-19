@@ -99,29 +99,30 @@ class Esica < Sinatra::Base
     f.write(parameters["family"])
 
     pic  = tempfile ["pic", ".png"], parameters["pic"]
-    `open #{pic.path}`
-    back = tempfile ["back", ".png"], parameters["back"]
-    f.write(parameters["school"])
+    pic.read
+    # `open #{pic.path}`
+    # back = tempfile ["back", ".png"], parameters["back"]
+    # f.write(parameters["school"])
 
-    business_card = BusinessCard.new(
-      name:        BusinessCard::Name.new(text: parameters["name"]),
-      rubi_name:   BusinessCard::RubiName.new(text: parameters["rubi_name"]),
-      school:      BusinessCard::School.new(text: parameters["school"]),
-      department:  BusinessCard::Department.new(text: parameters["department"]),
-      tel:         BusinessCard::Tel.new(text: parameters["tel"]),
-      mail:        BusinessCard::Mail.new(text: parameters["mail"]),
-      pic:         BusinessCard::Pic.new(path: pic ? pic.path : nil),
-      back:        BusinessCard::Back.new(path: back ? back.path : nil)
-    )
-    f.write("business_card init")
-    f.close
+    # business_card = BusinessCard.new(
+    #  name:        BusinessCard::Name.new(text: parameters["name"]),
+    #  rubi_name:   BusinessCard::RubiName.new(text: parameters["rubi_name"]),
+    #  school:      BusinessCard::School.new(text: parameters["school"]),
+    #  department:  BusinessCard::Department.new(text: parameters["department"]),
+    #  tel:         BusinessCard::Tel.new(text: parameters["tel"]),
+    #  mail:        BusinessCard::Mail.new(text: parameters["mail"]),
+    #  pic:         BusinessCard::Pic.new(path: pic ? pic.path : nil),
+    #  back:        BusinessCard::Back.new(path: back ? back.path : nil)
+    #)
+    #f.write("business_card init")
+    #f.close
     # send_file(business_card.make, type: "image/png")
-    f = open("data.png", "wb")
-    f.write(business_card.make)
-    f.close
-    str = Base64.encode64(File.new("data.png").read)
+    #f = open("data.png", "wb")
+    #f.write(business_card.make)
+    #f.close
+    #str = Base64.encode64(File.new("data.png").read)
 
-    data = {"data" => str}
-    data.to_json
+    #data = {"data" => str}
+    #data.to_json
   end
 end
