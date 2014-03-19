@@ -19,9 +19,9 @@ public class Utils {
 		return bytesToBitmap(bytes);
 	}
 	
-	public static String bitmapToBase64(Bitmap b){
+	public static String bitmapToBase64(Bitmap b, int x, int y){
 		
-		return Base64.encode(bitmapToBytes(b));
+		return Base64.encode(bitmapToBytes(Bitmap.createScaledBitmap(b, x, y, false)));
 	}
 	
 	public static Bitmap bytesToBitmap(byte[] b){
@@ -62,6 +62,10 @@ public class Utils {
 			}
 		}
 		f.delete();
+	}
+
+	public static String bitmapToBase64Raw(Bitmap b) {
+		return Base64.encode(bitmapToBytes(b));
 	}
 	
 }

@@ -12,6 +12,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
+        android:background="@drawable/frame_background"
         android:src="@drawable/dummy" />
 
     <TextView
@@ -39,16 +40,18 @@
             android:layout_marginRight="5dp"
             android:layout_weight="1"
             android:background="@drawable/default_button_background"
-            android:text="保存" />
+            android:text="保存"
+            android:textColor="#FFFFFF" />
+
         <Button
             android:id="@+id/cancel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:layout_weight="1"
-            android:background="@drawable/default_button_background"
-            android:text="キャンセル" />
-
+            android:background="@drawable/damage_button_background"
+            android:text="キャンセル"
+            android:textColor="#FF0000" />
 
     </LinearLayout>
 

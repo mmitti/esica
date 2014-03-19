@@ -121,6 +121,7 @@ public class CreateActivity extends ScreenManagerActivity implements CreateManag
 			super(handler);
 			num = id;
 			mDlg = new ProgressDialog(CreateActivity.this);
+			mDlg.setCancelable(false);
 			mDlg.setMessage("読み込み中");
 		}
 		

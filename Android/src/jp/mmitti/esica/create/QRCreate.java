@@ -44,7 +44,7 @@ public class QRCreate  extends LinearLayout{
 	}
 	
 	public String getQRImage(){
-		return Utils.bitmapToBase64(createQR(mManager.getData().getQRData()));
+		return Utils.bitmapToBase64Raw(createQR(mManager.getData().getQRData()));
 		
 	}
 	
@@ -56,14 +56,14 @@ public class QRCreate  extends LinearLayout{
 			Hashtable<EncodeHintType, Object> hints = new Hashtable<EncodeHintType, Object>();
 			hints.put(EncodeHintType.CHARACTER_SET, "shiftjis");
 			hints.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.L);
-			BitMatrix bm = writer.encode(text, BarcodeFormat.QR_CODE, 300, 300, hints);
+			BitMatrix bm = writer.encode(text, BarcodeFormat.QR_CODE, 135, 135, hints);
 			int width = bm.getWidth();
 			int height = bm.getHeight();
 			int[] pixels = new int[width * height];
 			for (int y = 0; y < height; y++) {
 			    int offset = y * width;
 			    for (int x = 0; x < width; x++) {
-			        pixels[offset + x] = bm.get(x, y) ? Color.BLACK : 0x00FFFFFF;
+			        pixels[offset + x] = bm.get(x, y) ? Color.BLACK : 0xFFFFFFFF;
 			    }
 			}
 			bmp = Bitmap.createBitmap(width, height, Config.ARGB_8888);

@@ -59,7 +59,7 @@ public class SelectBackground  extends CreateScreen implements OnClickListener, 
 
 	@Override
 	public void recvd(Bitmap b) {
-		mManager.getData().back = Utils.bitmapToBase64(b);
+		mManager.getData().back = Utils.bitmapToBase64(b, 637, 385);
 		mImg.setImageBitmap(b);
 	}
 	

@@ -39,7 +39,8 @@
             android:layout_marginRight="5dp"
             android:layout_weight="1"
             android:background="@drawable/default_button_background"
-            android:text="編集" />
+            android:text="編集"
+            android:textColor="#FFFFFF" />
 
         <Button
             android:id="@+id/remove"
@@ -62,7 +63,8 @@
         android:layout_alignParentRight="true"
         android:layout_marginBottom="10dp"
         android:background="@drawable/default_button_background"
-        android:text="この名刺を使う" />
+        android:text="この名刺を使う"
+        android:textColor="#FFFFFF" />
 
     <TextView
         android:id="@+id/text_failed"

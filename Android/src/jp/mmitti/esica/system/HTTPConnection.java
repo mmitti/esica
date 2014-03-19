@@ -27,7 +27,7 @@ import android.os.DropBoxManager.Entry;
 
 public class HTTPConnection{
 	private final static String URI = "misansan2.cloudapp.net";
-	private final static int PORT = 4567;
+	private final static int PORT = 9292;
 
 	/*public static String PostJsonArgToParams(String path, String jsonarg){
 		try{

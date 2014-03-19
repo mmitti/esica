@@ -131,6 +131,7 @@ public class SelectPic extends CreateScreen implements OnClickListener {
 			super(handler);
 			mDlg = new ProgressDialog((Context)mManager);
 			mDlg.setMessage("しばらくお待ちください");
+			mDlg.setCancelable(false);
 		}
 		
 		protected void preProcessOnUI(){

@@ -32,7 +32,8 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:background="@drawable/default_button_background"
-        android:text="戻る" />
+        android:text="戻る"
+        android:textColor="#FFFFFF" />
 
     <Button
         android:id="@+id/next"
@@ -43,7 +44,8 @@
         android:layout_marginLeft="60dp"
         android:layout_toRightOf="@+id/back"
         android:background="@drawable/default_button_background"
-        android:text="作成" />
+        android:text="作成"
+        android:textColor="#FFFFFF" />
 
     <jp.mmitti.esica.common.MyImageView
         android:id="@+id/image"
@@ -51,7 +53,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/text_select"
-        android:background="@drawable/default_button_background"
+        android:background="@drawable/frame_background"
         android:clickable="false"
         android:longClickable="false"
         android:padding="2dp"
@@ -68,8 +70,7 @@
         android:layout_marginBottom="5dp"
         android:layout_marginTop="5dp"
         android:background="@drawable/default_button_background"
-        android:text="背景を選ぶ" />
-
- 
+        android:text="背景を選ぶ"
+        android:textColor="#FFFFFF" />
     
 </RelativeLayout>

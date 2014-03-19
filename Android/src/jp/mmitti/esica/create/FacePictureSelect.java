@@ -38,8 +38,7 @@ public class FacePictureSelect extends LinearLayout implements OnBitmapRecvdList
 	
 	public String dumpImg(){
 		if(bitmap == null)return "";
-		if(bitmap.getWidth()>150)bitmap = Bitmap.createScaledBitmap(bitmap, 150, 150, false);
-		return Utils.bitmapToBase64(bitmap);
+		return Utils.bitmapToBase64(bitmap, 135, 135);
 	}
 	
 	public void setImage(String json){

@@ -23,10 +23,12 @@
     <ImageView
         android:id="@+id/imageView1"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="fill_parent"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
-        android:layout_below="@+id/content" />
+        android:layout_below="@+id/content"
+        android:layout_centerHorizontal="true"
+        android:scaleType="fitCenter" />
 
 </RelativeLayout>

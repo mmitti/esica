@@ -65,7 +65,8 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:background="@drawable/default_button_background"
-        android:text="戻る" />
+        android:text="戻る"
+        android:textColor="#FFFFFF" />
 
     <Button
         android:id="@+id/next"
@@ -74,7 +75,8 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:background="@drawable/default_button_background"
-        android:text="次へ" />
+        android:text="次へ"
+        android:textColor="#FFFFFF" />
 
     <RelativeLayout
         android:id="@+id/innercontent"

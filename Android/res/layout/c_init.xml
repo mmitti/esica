@@ -53,6 +53,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:background="@drawable/default_button_background"
-        android:text="次へ" />
+        android:text="次へ"
+        android:textColor="#FFFFFF" />
 
 </RelativeLayout>

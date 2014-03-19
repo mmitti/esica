@@ -42,7 +42,8 @@
         android:layout_alignParentRight="true"
         android:layout_marginBottom="10dp"
         android:background="@drawable/default_button_background"
-        android:text="名刺を選ぶ" />
+        android:text="名刺を選ぶ"
+        android:textColor="#FFFFFF" />
 
     <Button
         android:id="@+id/create"
@@ -52,6 +53,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:background="@drawable/default_button_background"
-        android:text="名刺を作る" />
+        android:text="名刺を作る"
+        android:textColor="#FFFFFF" />
 
 </RelativeLayout>

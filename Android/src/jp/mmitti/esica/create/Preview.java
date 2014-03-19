@@ -86,6 +86,7 @@ public class Preview extends CreateScreen {
 			mDlg = new ProgressDialog((Context)mManager);
 			res = ((Activity)mManager).getResources();
 			mDlg.setMessage("名刺を作成しています。");
+			mDlg.setCancelable(false);
 		}
 		
 		private Resources res;
@@ -97,12 +98,12 @@ public class Preview extends CreateScreen {
 		protected void doBackGround() throws InterruptedException {
 			ArgData d = mManager.getData();
 	if(d.back.trim().equals(""))
-		d.back = Utils.bitmapToBase64(BitmapFactory.decodeResource(res, R.drawable.dummy));
+		d.back = Utils.bitmapToBase64(BitmapFactory.decodeResource(res, R.drawable.dummy), 637, 385);
 	if(d.pic.trim().equals(""))
-		d.pic = Utils.bitmapToBase64(BitmapFactory.decodeResource(res, R.drawable.dummy_s));
+		d.pic = Utils.bitmapToBase64(BitmapFactory.decodeResource(res, R.drawable.dummy_s), 135, 135);
 			//TODO 将来的に不要になる 
 			String json = JSON.encode(d);
-			String ret = HTTPConnection.Post("make", json);
+			String ret = HTTPConnection.Post("business_card.png", json);
 			Map<String, String>dat = JSON.decode(ret);
 			bitmap = Utils.base64ToBitmap(dat.get("data"));
 			mManager.make(bitmap);
@@ -124,6 +125,7 @@ public class Preview extends CreateScreen {
 			super(handler);
 			mDlg = new ProgressDialog((Context)mManager);
 			mDlg.setMessage("保存しています。");
+			mDlg.setCancelable(false);
 		}
 		
 		

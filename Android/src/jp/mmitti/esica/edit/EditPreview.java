@@ -153,6 +153,7 @@ public class EditPreview extends Screen implements OnClickListener{
 		public Remove(Handler handler) {
 			super(handler);
 			mDlg = new ProgressDialog((Context)mManager);
+			mDlg.setCancelable(false);
 		}
 		
 		protected void preProcessOnUI(){

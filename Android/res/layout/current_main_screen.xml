@@ -27,6 +27,7 @@
     android:clickable="true" >
 
 </View>
+
     <Button
         android:id="@+id/edit"
         android:layout_width="wrap_content"
@@ -35,7 +36,8 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:background="@drawable/default_button_background"
-        android:text="詳細" />
+        android:text="詳細"
+        android:textColor="#FFFFFF" />
     
         <Button
             android:id="@+id/add"
@@ -46,7 +48,8 @@
             android:layout_alignParentRight="true"
             android:layout_marginBottom="10dp"
             android:background="@drawable/default_button_background"
-            android:text="追加" />
+            android:text="追加"
+            android:textColor="#FFFFFF" />
 
         <TextView
             android:id="@+id/textView1"

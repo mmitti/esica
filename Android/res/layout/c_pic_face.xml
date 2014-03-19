@@ -23,7 +23,8 @@
         android:layout_alignParentRight="true"
         android:layout_marginBottom="5dp"
         android:background="@drawable/default_button_background"
-        android:text="画像を選択" />
+        android:text="画像を選択"
+        android:textColor="#FFFFFF" />
 
     <TextView
         android:id="@+id/text_select"
