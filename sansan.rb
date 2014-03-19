@@ -111,7 +111,7 @@ class Esica < Sinatra::Base
     )
     # send_file(business_card.make, type: "image/png")
     f = open("data.png", "wb")
-    f.write(business_card)
+    f.write(business_card.make)
     f.close
     str = Base64.encode64(File.new("data.png").read)
 
