@@ -56,7 +56,7 @@ class Esica < Sinatra::Base
         nil
       else
         tempfile = Tempfile.new(name)
-        tempfile.write(Base64.decode(content))
+        tempfile.write(Base64.decode64(content))
         tempfile
       end
     end
