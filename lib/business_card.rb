@@ -1,6 +1,7 @@
 require "tempfile"
 require "cairo"
 require "RMagick"
+require "base64"
 
 class BusinessCard
   class Base
