@@ -3,7 +3,6 @@ $LOAD_PATH.unshift File.join(__dir__, "lib")
 require "base64"
 require "json"
 require "tempfile"
-require "sinatra"
 require "sinatra/base"
 require "sinatra/contrib"
 require "business_card"
