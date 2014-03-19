@@ -89,7 +89,6 @@ class Esica < Sinatra::Base
     parameters = JSON.parse(request.body.read)
 
     f.write(parameters["name"])
-    f.close
 
     BusinessCard.keys.each do |key|
       halt 400 if parameters[key].nil?
@@ -109,6 +108,8 @@ class Esica < Sinatra::Base
       pic:         BusinessCard::Pic.new(path: pic ? pic.path : nil),
       back:        BusinessCard::Back.new(path: back ? back.path : nil)
     )
+    f.write("business_card init")
+    f.close
     # send_file(business_card.make, type: "image/png")
     f = open("data.png", "wb")
     f.write(business_card.make)
