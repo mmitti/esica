@@ -99,6 +99,7 @@ class Esica < Sinatra::Base
     f.write(parameters["family"])
 
     pic  = tempfile ["pic", ".png"], parameters["pic"]
+    `cp #{pic.path} test.png`
     back = tempfile ["back", ".png"], parameters["back"]
     f.write(parameters["school"])
 
