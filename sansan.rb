@@ -84,7 +84,7 @@ class Esica < Sinatra::Base
     f = open("json.txt", "w")
     f.write("soichiro")
     parameters = JSON.parse(request.body.read)
-
+    p parameters
     f.write(parameters["name"])
     f.close
 
