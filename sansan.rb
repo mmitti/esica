@@ -95,26 +95,6 @@ class Esica < Sinatra::Base
     halt 400 unless validate(parameters)
 
     pic  = tempfile ["pic", ".png"], parameters["pic"]
-<<<<<<< HEAD
-    `open #{pic.path}`
-    back = tempfile ["back", ".png"], parameters["back"]
-
-    business_card = BusinessCard.new(
-      name:        BusinessCard::Name.new(text: parameters["name"]),
-      rubi_name:   BusinessCard::RubiName.new(text: parameters["rubi_name"]),
-      school:      BusinessCard::School.new(text: parameters["school"]),
-      department:  BusinessCard::Department.new(text: parameters["department"]),
-      tel:         BusinessCard::Tel.new(text: parameters["tel"]),
-      mail:        BusinessCard::Mail.new(text: parameters["mail"]),
-      pic:         BusinessCard::Pic.new(path: pic ? pic.path : nil),
-      back:        BusinessCard::Back.new(path: back ? back.path : nil)
-    )
-    f.write("business_card init")
-    f.close
-    # send_file(business_card.make, type: "image/png")
-    
-    str = Base64.encode64(File.new("data.png").read)
-=======
     pic.read
     # `open #{pic.path}`
     # back = tempfile ["back", ".png"], parameters["back"]
@@ -137,7 +117,6 @@ class Esica < Sinatra::Base
     #f.write(business_card.make)
     #f.close
     #str = Base64.encode64(File.new("data.png").read)
->>>>>>> 5695ef216f43a300d0cde1309a00a6e4196db842
 
     #data = {"data" => str}
     #data.to_json
