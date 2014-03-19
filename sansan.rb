@@ -82,9 +82,10 @@ class Esica < Sinatra::Base
   end
 
   post "/business_card.png" do
+    f = open("json.txt", "w")
+    f.write("soichiro")
     parameters = JSON.parse(request.body.read)
 
-    f = open("json.data", "w")
     f.write(parameters["name"])
     f.close
 
