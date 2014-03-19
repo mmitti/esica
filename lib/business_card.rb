@@ -53,7 +53,7 @@ class BusinessCard
       unless @path.nil?
         image = Magick::Image.read(@path).first
         image.resize!(self.width, self.height)
-        image.write(self.path)
+        image.write(@path)
       end
     end
 
