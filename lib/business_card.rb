@@ -51,7 +51,8 @@ class BusinessCard
       @path = path
 
       unless @path.nil?
-        image = Magick::Image.read(@path).first
+        # image = Magick::Image.read(File.binread(@path)).first
+        image = Magick::ImageList.new(@path)
         image.resize!(self.width, self.height)
         image.write(@path)
       end
@@ -217,7 +218,7 @@ class BusinessCard
     @mail.render(@context)
     @pic.render(@context)
 
-    @tempfile = Tempfile.new(["business_card", "png"])
+    @tempfile = Tempfile.new(["business_card", ".png"])
     @surface.write_to_png(@tempfile.path)
     @tempfile.path
   end
