@@ -187,7 +187,7 @@ class BusinessCard
   WIDTH     = 637
   HEIGHT    = 385
 
-  FONT_FACE = "Osaka"
+  FONT_FACE = "07YasashisaGothic"
 
   def initialize(
     name:        nil,
