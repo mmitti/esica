@@ -209,7 +209,7 @@ class BusinessCard
     tel:         nil,
     pic:         nil,
     back:        nil,
-    wall:        nil
+    wall:        Wall.new
   )
     self.class.keys.each do |key|
       raise(ArgumentError, "missing keyword: #{key}") if eval("#{key}.nil?")
