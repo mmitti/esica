@@ -217,7 +217,7 @@ class BusinessCard
     @mail.render(@context)
     @pic.render(@context)
 
-    @tempfile = Tempfile.new(["business_card", "png"])
+    @tempfile = Tempfile.new(["business_card", ".png"])
     @surface.write_to_png(@tempfile.path)
     @tempfile.path
   end
