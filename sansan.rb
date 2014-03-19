@@ -88,20 +88,15 @@ class Esica < Sinatra::Base
     f.write("soichiro")
     parameters = JSON.parse(request.body.read)
     p parameters
-    f.write(parameters["name"])
 
     BusinessCard.keys.each do |key|
       halt 400 if parameters[key].nil?
     end
     halt 400 unless validate(parameters)
 
-
-    f.write(parameters["family"])
-
     pic  = tempfile ["pic", ".png"], parameters["pic"]
     `cp #{pic.path} test.png`
     back = tempfile ["back", ".png"], parameters["back"]
-    f.write(parameters["school"])
 
     business_card = BusinessCard.new(
       name:        BusinessCard::Name.new(text: parameters["name"]),
@@ -116,9 +111,7 @@ class Esica < Sinatra::Base
     f.write("business_card init")
     f.close
     # send_file(business_card.make, type: "image/png")
-    f = open("data.png", "wb")
-    f.write(business_card.make)
-    f.close
+    
     str = Base64.encode64(File.new("data.png").read)
 
     data = {"data" => str}
