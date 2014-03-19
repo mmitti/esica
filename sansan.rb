@@ -110,6 +110,9 @@ class Esica < Sinatra::Base
       back:        BusinessCard::Back.new(path: back ? back.path : nil)
     )
     # send_file(business_card.make, type: "image/png")
-    Base64.encode64(File.new(business_card.make).read)
+    str = Base64.encode64(File.new(business_card.make).read)
+
+    data = {"data" => str}
+    data.to_json
   end
 end
