@@ -148,13 +148,13 @@ class BusinessCard
 
   class Mail < Text
     X         = 180
-    Y         = 380
+    Y         = 360
     FONT_SIZE = 20
   end
 
   class Tel < Text
     X         = 180
-    Y         = 350
+    Y         = 330
     FONT_SIZE = 20
   end
 
