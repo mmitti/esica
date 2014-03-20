@@ -91,6 +91,13 @@ class Esica < Sinatra::Base
     pic  = tempfile ["pic", ".png"], parameters["pic"]
     pic.read
     back = tempfile ["back", ".png"], parameters["back"]
+    # nilの実装
+
+    if full_name = 
+      
+    end
+
+    full_name = parameters["family"] 
 
     business_card = BusinessCard.new(
      name:        BusinessCard::Name.new(text: parameters["name"]),
