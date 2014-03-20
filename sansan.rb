@@ -91,17 +91,18 @@ class Esica < Sinatra::Base
     pic  = tempfile ["pic", ".png"], parameters["pic"]
     pic.read
     back = tempfile ["back", ".png"], parameters["back"]
-    # nilの実装
-
-    if full_name = 
-      
+    
+    if (parameters["family"].length + parameters["name"].length) == 2 
+      full_name = parameters["family"] + "  " + parameters["name"]
+    else
+      full_name = parameters["family"] + " " + parameters["name"]
     end
 
-    full_name = parameters["family"] 
+    rubi_full = parameters["rubi_family"] + "     " + parameters["rubi_name"] 
 
     business_card = BusinessCard.new(
-     name:        BusinessCard::Name.new(text: parameters["name"]),
-     rubi_name:   BusinessCard::RubiName.new(text: parameters["rubi_name"]),
+     name:        BusinessCard::Name.new(text: full_name),
+     rubi_name:   BusinessCard::RubiName.new(text: rubi_full),
      school:      BusinessCard::School.new(text: parameters["school"]),
      department:  BusinessCard::Department.new(text: parameters["department"]),
      tel:         BusinessCard::Tel.new(text: parameters["tel"]),
