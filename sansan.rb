@@ -100,7 +100,7 @@ class Esica < Sinatra::Base
 
     rubi_full = parameters["rubi_family"] + "     " + parameters["rubi_name"] 
 
-    mail_address = "メールアドレス：" + parameters["mail"]
+    mail_address = "Email：" + parameters["mail"]
     tel_number = "電話番号：" + parameters["tel"]
 
 
