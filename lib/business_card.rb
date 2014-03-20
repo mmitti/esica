@@ -176,6 +176,17 @@ class BusinessCard
     G      = 1
     B      = 1
   end
+  
+    class Wall < BackgroundImage
+    X      = 0
+    Y      = 0
+    WIDTH  = 637
+    HEIGHT = 385
+    ALPHA  = 1
+    R      = 1
+    G      = 1
+    B      = 1
+  end
 
   WIDTH     = 637
   HEIGHT    = 385
@@ -190,7 +201,8 @@ class BusinessCard
     mail:        nil,
     tel:         nil,
     pic:         nil,
-    back:        nil
+    back:        nil,
+    wall:        Wall.new
   )
     self.class.keys.each do |key|
       raise(ArgumentError, "missing keyword: #{key}") if eval("#{key}.nil?")
@@ -203,6 +215,7 @@ class BusinessCard
   end
 
   def make
+    @wall.render(@context)
     @back.render(@context)
     @school.render(@context)
     @department.render(@context)
