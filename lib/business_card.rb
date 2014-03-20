@@ -129,7 +129,7 @@ class BusinessCard
   end
 
   class RubiName < Text
-    X         = 400
+    X         = 220
     Y         = 150
     FONT_SIZE = 25
   end

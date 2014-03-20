@@ -100,13 +100,17 @@ class Esica < Sinatra::Base
 
     rubi_full = parameters["rubi_family"] + "     " + parameters["rubi_name"] 
 
+    mail_address = "メールアドレス：" + parameters["mail"]
+    tel_number = "電話番号：" + parameters["tel"]
+
+
     business_card = BusinessCard.new(
      name:        BusinessCard::Name.new(text: full_name),
      rubi_name:   BusinessCard::RubiName.new(text: rubi_full),
      school:      BusinessCard::School.new(text: parameters["school"]),
      department:  BusinessCard::Department.new(text: parameters["department"]),
-     tel:         BusinessCard::Tel.new(text: parameters["tel"]),
-     mail:        BusinessCard::Mail.new(text: parameters["mail"]),
+     tel:         BusinessCard::Tel.new(text: tel_number),
+     mail:        BusinessCard::Mail.new(text: mail_address),
      pic:         BusinessCard::Pic.new(path: pic ? pic.path : nil),
      back:        BusinessCard::Back.new(path: back ? back.path : nil)
     )
