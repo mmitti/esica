@@ -4,6 +4,7 @@ import jp.mmitti.esica.common.data.ArgData;
 import jp.mmitti.esica.system.ScreenManagerActivity;
 import jp.mmitti.sansan.R;
 import android.app.Activity;
+import android.content.Context;
 import android.text.InputFilter;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
@@ -11,6 +12,7 @@ import android.text.SpannedString;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -80,7 +82,11 @@ public class Input extends CreateScreen implements OnClickListener {
 	
 	@Override
 	public void onClick(View v) {
+		InputMethodManager inputMethodManager =   
+	            (InputMethodManager)((Activity)mManager).getSystemService(Context.INPUT_METHOD_SERVICE);  
+	      inputMethodManager.hideSoftInputFromWindow(v.getWindowToken(), 0);  
 		switch(v.getId()){
+		
 		case R.id.next:
 			if(check((Activity)mManager))mManager.changeScreen(new SelectPic());
 			break;

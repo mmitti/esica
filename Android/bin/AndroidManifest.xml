@@ -32,7 +32,8 @@
         </activity>
         <activity
             android:name="jp.mmitti.esica.create.CreateActivity"
-            android:label="@string/app_create" >
+            android:label="@string/app_create"
+            android:windowSoftInputMode="adjustResize" >
         </activity>
          <activity
             android:name="jp.mmitti.esica.edit.EditActivity"
